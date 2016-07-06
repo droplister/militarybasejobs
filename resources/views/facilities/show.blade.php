@@ -9,3 +9,13 @@
 @endif
 
 {!! $listings->render() !!}
+
+<p>
+    <a href="{{ url(route('location::state::show', ['state' => $state->id])) }}">{{ $state->name }}</a>
+    &raquo;
+    @if(count($counties))
+        @foreach($counties as $county)
+            <a href="{{ url(route('location::county::show', ['county' => $county->id])) }}">{{ $county->name }}</a>
+        @endforeach
+    @endif
+</p>

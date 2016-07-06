@@ -20,6 +20,7 @@ class FacilityTableSeeder extends Seeder
             'Naval ', 
             'Marine Corps', 
             'Air Force', 
+            ' AFB', 
             ' Air ', 
             'Camp ', 
             'Point Loma Complex', 

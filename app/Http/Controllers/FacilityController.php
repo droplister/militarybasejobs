@@ -27,6 +27,10 @@ class FacilityController extends Controller
 
         $listings = $facility->listings()->paginate(50);
 
-        return view('facilities.show', compact('facility', 'listings'));
+        $state = $facility->state();
+
+        $counties = $state->children;
+
+        return view('facilities.show', compact('facility', 'listings', 'state', 'counties'));
     }
 }

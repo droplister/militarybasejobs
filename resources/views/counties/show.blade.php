@@ -1,4 +1,4 @@
-<h1>{{ $county->name }} <small>{{ $state->name }}</small></h1>
+<h1>{{ $county->name }}</h1>
 
 @if(count($listings))
     <ul>
@@ -9,6 +9,8 @@
 @endif
 
 {!! $listings->render() !!}
+
+<p><a href="{{ url(route('location::state::show', ['state' => $state->id])) }}">{{ $state->name }}</a></p>
 
 @if(count($facilities))
     <ul>

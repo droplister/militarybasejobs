@@ -17,7 +17,7 @@ class CreateFacilitiesTable extends Migration
 
             // Facility
             $table->string('code')->unique();
-            $table->string('name');
+            $table->string('name')->unique();
         });
     }
 

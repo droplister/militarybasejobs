@@ -31,7 +31,19 @@ class Facility extends Model
      */
     public static function createFacility($code, $name)
     {
-        $new_facility = compact('code', 'name');
-        return static::firstOrCreate($new_facility);
+        $facility = static::firstOrNew(compact('name'));
+
+        if (! $facility->exists)
+        {
+            $facility_data = compact('code', 'name');
+            $facility->fill($facility_data)->save();
+        }
+
+        return $facility;
+    }
+
+    public function state()
+    {
+        return $this->locations()->states()->first();
     }
 }

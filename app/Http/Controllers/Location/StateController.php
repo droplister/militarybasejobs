@@ -29,6 +29,8 @@ class StateController extends Controller
 
         $counties = $state->children;
 
-        return view('states.show', compact('state', 'listings', 'counties'));
+        $facilities = $state->facilities;
+
+        return view('states.show', compact('state', 'listings', 'counties', 'facilities'));
     }
 }

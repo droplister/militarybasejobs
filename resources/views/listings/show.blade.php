@@ -11,19 +11,21 @@
     @if(count($states))
         @foreach($states as $state)
             <a href="{{ url(route('location::state::show', ['state' => $state->id])) }}">{{ $state->name }}</a>
+            &raquo;
             @if(count($state->children))
                 @foreach($state->children as $county)
-                    {{ $county->name }}
+                    <a href="{{ url(route('location::county::show', ['county' => $county->id])) }}">{{ $county->name }}</a>
                 @endforeach
             @endif
+            <br />
         @endforeach
     @endif
 </p>
 <h1>{{ $listing->name }}</h1>
 <p>{{ $listing->announcement }}</p>
 <p>{{ $listing->url }}</p>
-<p>{{ $listing->qualifications }}</p>
 <p>{{ $listing->summary }}</p>
+<p>{{ $listing->qualifications }}</p>
 <p>{{ $listing->low_grade }}-{{ $listing->high_grade }}</p>
 <p>${{ $listing->min_pay }} to ${{ $listing->max_pay }} {{ $listing->pay_interval }}</p>
 <p>{{ $who_may_apply->name }} ({{ $who_may_apply->code }})</p>
