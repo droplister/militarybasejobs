@@ -14,3 +14,21 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/**
+  * Department Routes
+  */
+Route::group(['as' => 'department::'], function() {
+
+    // Index
+    Route::get('departments', [
+        'as'   => 'index',
+        'uses' => 'DepartmentController@index',
+    ]);
+
+    // Show
+    Route::get('department/{department}', [
+        'as'   => 'show',
+        'uses' => 'DepartmentController@show',
+    ]);
+});

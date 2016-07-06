@@ -26,7 +26,7 @@ class Department extends Model
 
     public function listings()
     {
-        return $this->hasMany(Listing::class);
+        return $this->hasMany(Listing::class, 'organization_id');
     }
 
     public function departmentListings()
@@ -55,5 +55,10 @@ class Department extends Model
     {
         $new_department = compact('parent_id', 'name');
         return static::firstOrCreate($new_department);
+    }
+
+    public function isParent()
+    {
+        return ($this->parent_id === null ? true : false);
     }
 }
