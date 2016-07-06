@@ -133,6 +133,9 @@ class UsajobsFetch extends Command
         // Save Listing to Facility
         $listing->facilities()->save($facility);
 
+        // Relate Facility Locations
+        $listing->locations()->saveMany($facility->locations);
+
         // Tag Listing with Filters
         $this->tagListingWithFilters($listing, $result);
     }

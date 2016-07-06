@@ -34,6 +34,36 @@ Route::group(['as' => 'listing::'], function() {
 });
 
 /**
+  * Location Routes
+  */
+Route::group(['as' => 'location::'], function() {
+
+    // Country - Index
+    Route::get('countries', [
+        'as'   => 'country::index',
+        'uses' => 'Location\CountryController@index',
+    ]);
+
+    // Country - Show
+    Route::get('country/{country}', [
+        'as'   => 'country::show',
+        'uses' => 'Location\CountryController@show',
+    ]);
+
+    // State - Index
+    Route::get('states', [
+        'as'   => 'state::index',
+        'uses' => 'Location\StateController@index',
+    ]);
+
+    // State - Show
+    Route::get('state/{state}', [
+        'as'   => 'state::show',
+        'uses' => 'Location\StateController@show',
+    ]);
+});
+
+/**
   * Department Routes
   */
 Route::group(['as' => 'department::'], function() {

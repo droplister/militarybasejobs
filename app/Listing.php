@@ -72,6 +72,11 @@ class Listing extends Model
         return $this->belongsToMany(Facility::class);
     }
 
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class);
+    }
+
     public function filters()
     {
         return $this->morphToMany(Filter::class, 'filterable');

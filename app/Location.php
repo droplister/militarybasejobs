@@ -24,6 +24,11 @@ class Location extends Model
         return $this->belongsTo(Location::class, 'parent_id');
     }
 
+    public function listings()
+    {
+        return $this->belongsToMany(Listing::class);
+    }
+
     public function facilities()
     {
         return $this->belongsToMany(Facility::class);
@@ -31,24 +36,19 @@ class Location extends Model
 
     // SCOPES
 
-    public function scopeCountry($query)
+    public function scopeCountries($query)
     {
         return $query->whereType('country')->where('parent_id', '=', null);
     }
 
-    public function scopeState($query)
+    public function scopeStates($query)
     {
         return $query->whereType('state')->where('parent_id', '!=', null);
     }
 
-    public function scopeCounty($query)
+    public function scopeCounties($query)
     {
         return $query->whereType('county')->where('parent_id', '!=', null);
-    }
-
-    public function scopeCity($query)
-    {
-        return $query->whereType('city')->where('parent_id', '!=', null);
     }
 
     // FUNCTIONS
