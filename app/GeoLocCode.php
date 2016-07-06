@@ -6,9 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class GeoLocCode extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'code', 'city', 'us_county', 'country_subdivision', 'country', 'disabled',
     ];
+
+    // SCOPES
+
+    public function scopeEnabled($query)
+    {
+        return $query->whereDisabled(0);
+    }
 
     // FUNCTIONS
 

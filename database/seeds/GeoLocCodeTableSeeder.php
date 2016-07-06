@@ -23,11 +23,11 @@ class GeoLocCodeTableSeeder extends Seeder
 
         foreach($data->CodeList[0]->ValidValue as $result)
         {
-            $code = $result->Code;
-            $city = $result->City;
-            $us_county = (property_exists($result, 'USCounty') ? $result->USCounty : null);
-            $country_subdivision = (property_exists($result, 'CountrySubdivision') ? $result->CountrySubdivision : null);
-            $country = $result->Country;
+            $code = trim($result->Code);
+            $city = trim($result->City);
+            $us_county = (property_exists($result, 'USCounty') ? trim($result->USCounty) : null);
+            $country_subdivision = (property_exists($result, 'CountrySubdivision') ? trim($result->CountrySubdivision) : null);
+            $country = trim($result->Country);
             $disabled = ($result->IsDisabled === 'Yes' ? 1 : 0 );
 
             GeoLocCode::createGeoLocCode($code, $city, $us_county, $country_subdivision, $country, $disabled);

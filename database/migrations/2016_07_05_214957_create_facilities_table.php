@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGeoLocCodesTable extends Migration
+class CreateFacilitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,12 @@ class CreateGeoLocCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('geo_loc_codes', function (Blueprint $table) {
+        Schema::create('facilities', function (Blueprint $table) {
             $table->increments('id');
 
-            // GeoLocCode
+            // Facility
             $table->string('code')->unique();
-            $table->string('city');
-            $table->string('us_county')->nullable();
-            $table->string('country_subdivision')->nullable();
-            $table->string('country');
-            $table->boolean('disabled');
+            $table->string('name');
         });
     }
 
@@ -32,6 +28,6 @@ class CreateGeoLocCodesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('geo_loc_codes');
+        Schema::drop('facilities');
     }
 }
