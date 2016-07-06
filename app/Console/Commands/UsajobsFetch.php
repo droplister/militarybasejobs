@@ -84,6 +84,9 @@ class UsajobsFetch extends Command
     {
         $results = $this->fetchApiPageResults($facility);
 
+        // Catch Failed Fetch
+        if (! $results) return 0;
+
         return ceil($results->SearchResult->SearchResultCountAll / 500);
     }
 
@@ -131,10 +134,10 @@ class UsajobsFetch extends Command
         );
 
         // Save Listing to Facility
-        $listing->facilities()->save($facility);
+        $listing->facilities()->sync([$facility->id], false);
 
         // Relate Facility Locations
-        $listing->locations()->saveMany($facility->locations);
+        $listing->locations()->sync($facility->locations()->pluck('id')->toArray(), false);
 
         // Tag Listing with Filters
         $this->tagListingWithFilters($listing, $result);

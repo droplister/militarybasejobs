@@ -8,10 +8,12 @@
     </ul>
 @endif
 
+{!! $listings->render() !!}
+
 @if(count($counties))
     <ul>
         @foreach($counties as $county)
-            <li>{{ $county->name }}</li>
+            <li><a href="{{ url(route('location::county::show', ['county' => $county->id])) }}">{{ $county->name }}</a></li>
         @endforeach
     </ul>
 @endif

@@ -36,14 +36,9 @@ class Location extends Model
 
     // SCOPES
 
-    public function scopeCountries($query)
-    {
-        return $query->whereType('country')->where('parent_id', '=', null);
-    }
-
     public function scopeStates($query)
     {
-        return $query->whereType('state')->where('parent_id', '!=', null);
+        return $query->whereType('state')->where('parent_id', '=', null);
     }
 
     public function scopeCounties($query)

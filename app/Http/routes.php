@@ -38,16 +38,16 @@ Route::group(['as' => 'listing::'], function() {
   */
 Route::group(['as' => 'location::'], function() {
 
-    // Country - Index
-    Route::get('countries', [
-        'as'   => 'country::index',
-        'uses' => 'Location\CountryController@index',
+    // County - Index
+    Route::get('counties', [
+        'as'   => 'county::index',
+        'uses' => 'Location\CountyController@index',
     ]);
 
-    // Country - Show
-    Route::get('country/{country}', [
-        'as'   => 'country::show',
-        'uses' => 'Location\CountryController@show',
+    // County - Show
+    Route::get('county/{county}', [
+        'as'   => 'county::show',
+        'uses' => 'Location\CountyController@show',
     ]);
 
     // State - Index

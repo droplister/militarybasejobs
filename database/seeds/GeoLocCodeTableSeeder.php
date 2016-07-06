@@ -1,5 +1,6 @@
 <?php
 
+use Curl\Curl;
 use App\GeoLocCode;
 
 use Illuminate\Database\Seeder;
@@ -20,8 +21,6 @@ class GeoLocCodeTableSeeder extends Seeder
      */
     public function __construct()
     {
-        parent::__construct();
-
         $this->curl = new Curl();
         $this->curl->setHeader('Host', getenv('USAJOBS_HOST'));
         $this->curl->setHeader('User-Agent', getenv('USAJOBS_EMAIL'));

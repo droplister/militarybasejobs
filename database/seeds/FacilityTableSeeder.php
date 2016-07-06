@@ -46,27 +46,32 @@ class FacilityTableSeeder extends Seeder
 
         foreach ($keywords as $keyword)
         {
-            $matches = GeoLocCode::enabled()->where('city', 'like', "%{$keyword}%")->where('city', 'not like', 'FAA %')->where('city', 'not like', 'Beaufort %')->get();
+            $matches = GeoLocCode::enabled()->where('country', '=', 'US')->where('city', 'like', "%{$keyword}%")->where('city', 'not like', 'FAA %')->where('city', 'not like', 'Beaufort %')->get();
             foreach ($matches as $match)
             {
-                $facility = Facility::createFacility($match->code, $match->city);
+                $facility = Facility::createFacility(
+                    $match->code,
+                    $match->city
+                );
+
                 if ($facility->wasRecentlyCreated)
                 {
-                    if ($match->country === 'US')
-                    {
-                        $country = Location::createLocation('country', $match->country, 'United States');
-                        $state = Location::createLocation('state', $match->country_subdivision, getFullStateName($match->country_subdivision), $country->id);
-                        $county = Location::createLocation('county', null, $match->us_county, $state->id);
+                    $state = Location::createLocation(
+                       'state',
+                       $match->country_subdivision,
+                       getFullStateName($match->country_subdivision)
+                    );
 
-                        $locations = [$country, $state, $county];
+                    $county = Location::createLocation(
+                        'county',
+                        null,
+                        $match->us_county,
+                        $state->id
+                    );
 
-                        $facility->locations()->saveMany($locations);
-                    }
-                    else
-                    {
-                        $country = Location::createLocation('country', $match->country, getFullCountryName($match->country));
-                        $facility->locations()->save($country);
-                    }
+                    $locations = [$state, $county];
+
+                    $facility->locations()->saveMany($locations);
                 }
             }
         }

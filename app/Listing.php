@@ -62,9 +62,9 @@ class Listing extends Model
 
     // RELATIONS
 
-    public function department()
+    public function organization()
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class, 'organization_id');
     }
 
     public function facilities()
@@ -98,5 +98,35 @@ class Listing extends Model
         }
 
         return $listing;
+    }
+
+    public function states()
+    {
+        return $this->locations()->states()->get();
+    }
+
+    public function whoMayApply()
+    {
+        return $this->filters()->whoMayApply()->first();
+    }
+
+    public function jobCategories()
+    {
+        return $this->filters()->jobCategory()->get();
+    }
+
+    public function jobGrades()
+    {
+        return $this->filters()->jobGrade()->get();
+    }
+
+    public function positionSchedules()
+    {
+        return $this->filters()->positionSchedule()->get();
+    }
+
+    public function positionTypes()
+    {
+        return $this->filters()->positionType()->get();
     }
 }

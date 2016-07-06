@@ -13,7 +13,7 @@ class StateController extends Controller
      */
     public function index()
     {
-        $states = Location::states()->get();
+        $states = Location::states()->orderBy('name', 'asc')->get();
 
         return view('states.index', compact('states'));
     }
@@ -25,7 +25,7 @@ class StateController extends Controller
     {
         $state = Location::find($state);
 
-        $listings = $state->listings;
+        $listings = $state->listings()->paginate(50);
 
         $counties = $state->children;
 

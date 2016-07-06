@@ -25,7 +25,7 @@ class FacilityController extends Controller
     {
         $facility = Facility::find($facility);
 
-        $listings = $facility->listings;
+        $listings = $facility->listings()->paginate(50);
 
         return view('facilities.show', compact('facility', 'listings'));
     }

@@ -1,4 +1,4 @@
-<h1>{{ $country->name }}</h1>
+<h1>{{ $county->name }} <small>{{ $state->name }}</small></h1>
 
 @if(count($listings))
     <ul>
@@ -8,10 +8,12 @@
     </ul>
 @endif
 
-@if(count($states))
+{!! $listings->render() !!}
+
+@if(count($facilities))
     <ul>
-        @foreach($states as $state)
-            <li><a href="{{ url(route('location::state::show', ['state' => $state->id])) }}">{{ $state->name }}</a></li>
+        @foreach($facilities as $facility)
+            <li><a href="{{ url(route('facility::show', ['facility' => $facility->id])) }}">{{ $facility->name }}</a></li>
         @endforeach
     </ul>
 @endif

@@ -7,3 +7,5 @@
         @endforeach
     </ul>
 @endif
+
+{!! $listings->render() !!}
