@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDepartmentsTable extends Migration
+class CreateOrganizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('organizations', function (Blueprint $table) {
             $table->increments('id');
 
             // Relation
             $table->integer('parent_id')->unsigned()->index()->nullable();
-            $table->foreign('parent_id')->references('id')->on('departments');
+            $table->foreign('parent_id')->references('id')->on('organizations');
 
-            // Department
+            // Organization
             $table->string('name');
         });
     }
@@ -31,6 +31,6 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('departments');
+        Schema::drop('organizations');
     }
 }

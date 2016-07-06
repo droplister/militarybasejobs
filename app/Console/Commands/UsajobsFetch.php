@@ -6,7 +6,7 @@ use Curl\Curl;
 use App\Filter;
 use App\Listing;
 use App\Facility;
-use App\Department;
+use App\Organization;
 
 use Illuminate\Console\Command;
 
@@ -156,19 +156,19 @@ class UsajobsFetch extends Command
             if (strpos($result->MatchedObjectDescriptor->OrganizationName, ' Agency Wide'))
             {
                 // Agency Wide
-                $organization = Department::createDepartment(trim($result->MatchedObjectDescriptor->DepartmentName));
+                $organization = Organization::createOrganization(trim($result->MatchedObjectDescriptor->DepartmentName));
             }
             else
             {
                 // Regular Nesting
-                $department = Department::createDepartment(trim($result->MatchedObjectDescriptor->DepartmentName));
-                $organization = Department::createDepartment(trim($result->MatchedObjectDescriptor->OrganizationName), $department->id);
+                $parent = Organization::createOrganization(trim($result->MatchedObjectDescriptor->DepartmentName));
+                $organization = Organization::createOrganization(trim($result->MatchedObjectDescriptor->OrganizationName), $parent->id);
             }
         }
         else
         {
             // Single Organization
-            $organization = Department::createDepartment(trim($result->MatchedObjectDescriptor->OrganizationName));
+            $organization = Organization::createOrganization(trim($result->MatchedObjectDescriptor->OrganizationName));
         }
 
         return $organization;

@@ -25,7 +25,6 @@ class ListingController extends Controller
 
         $facilities = $listing->facilities;
         $organization = $listing->organization;
-        $department = $organization->parent;
 
         $states = $listing->states();
 
@@ -42,7 +41,6 @@ class ListingController extends Controller
                 'listing',
                 'facilities',
                 'organization',
-                'department',
                 'states',
                 'who_may_apply',
                 'job_categories',

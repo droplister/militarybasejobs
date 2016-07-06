@@ -1,7 +1,9 @@
 <p>
-    <a href="{{ url(route('department::show', ['department' => $department->id])) }}">{{ $department->name }}</a>
-    &raquo;
-    <a href="{{ url(route('department::show', ['department' => $organization->id])) }}">{{ $organization->name }}</a>
+    @if($organization->parent()->exists())
+        <a href="{{ url(route('organization::show', ['organization' => $organization->parent->id])) }}">{{ $organization->parent->name }}</a>
+        &raquo;
+    @endif
+    <a href="{{ url(route('organization::show', ['organization' => $organization->id])) }}">{{ $organization->name }}</a>
     &raquo;
     @foreach($facilities as $facility)
         <a href="{{ url(route('facility::show', ['facility' => $facility->id])) }}">{{ $facility->name }}</a>

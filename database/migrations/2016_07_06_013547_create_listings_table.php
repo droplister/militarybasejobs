@@ -17,7 +17,7 @@ class CreateListingsTable extends Migration
 
             // Relation
             $table->integer('organization_id')->unsigned()->index()->nullable();
-            $table->foreign('organization_id')->references('id')->on('departments');
+            $table->foreign('organization_id')->references('id')->on('organizations');
 
             // Listing
             $table->string('identifier')->unique();

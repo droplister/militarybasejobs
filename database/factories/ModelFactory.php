@@ -20,7 +20,7 @@ $factory->define(App\GeoLocCode::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Department::class, function (Faker\Generator $faker) {
+$factory->define(App\Organization::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
     ];
@@ -41,7 +41,7 @@ $factory->define(App\Filter::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Listing::class, function (Faker\Generator $faker) {
     return [
-        'organization_id' => factory(Department::class)->create()->id,
+        'organization_id' => factory(Organization::class)->create()->id,
         'identifier' => $faker->name,
         'announcement' => $faker->name,
         'name' => $faker->name,

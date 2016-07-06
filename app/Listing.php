@@ -64,7 +64,7 @@ class Listing extends Model
 
     public function organization()
     {
-        return $this->belongsTo(Department::class, 'organization_id');
+        return $this->belongsTo(Organization::class);
     }
 
     public function facilities()

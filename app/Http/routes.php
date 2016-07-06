@@ -64,32 +64,20 @@ Route::group(['as' => 'location::'], function() {
 });
 
 /**
-  * Department Routes
+  * Organization Routes
   */
-Route::group(['as' => 'department::'], function() {
+Route::group(['as' => 'organization::'], function() {
 
     // Index
-    Route::get('departments', [
+    Route::get('organizations', [
         'as'   => 'index',
-        'uses' => 'Department\DepartmentController@index',
+        'uses' => 'OrganizationController@index',
     ]);
 
     // Show
-    Route::get('department/{department}', [
-        'as'   => 'show',
-        'uses' => 'Department\DepartmentController@show',
-    ]);
-
-    // Organization - Index
-    Route::get('organizations', [
-        'as'   => 'organization::index',
-        'uses' => 'Department\OrganizationController@index',
-    ]);
-
-    // Organization - Show
     Route::get('organization/{organization}', [
-        'as'   => 'organization::show',
-        'uses' => 'Department\OrganizationController@show',
+        'as'   => 'show',
+        'uses' => 'OrganizationController@show',
     ]);
 });
 

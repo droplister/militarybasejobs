@@ -1,11 +1,11 @@
 <ul>
-@foreach($departments as $department)
+@foreach($organizations as $organization)
     <li>
-        <a href="{{ url(route('department::show', ['department' => $department->id])) }}">{{ $department->name }}</a>
-        @if(count($department->children))
+        <a href="{{ url(route('organization::show', ['organization' => $organization->id])) }}">{{ $organization->name }}</a>
+        @if(count($organization->children))
             <ul>
-                @foreach($department->children as $organization)
-                    <li><a href="{{ url(route('department::show', ['department' => $organization->id])) }}">{{ $organization->name }}</a></li>
+                @foreach($organization->children()->orderBy('name', 'asc')->get() as $child_organization)
+                    <li><a href="{{ url(route('organization::show', ['organization' => $child_organization->id])) }}">{{ $child_organization->name }}</a></li>
                 @endforeach
             </ul>
         @endif
