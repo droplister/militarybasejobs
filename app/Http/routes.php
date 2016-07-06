@@ -16,6 +16,24 @@ Route::get('/', function () {
 });
 
 /**
+  * Listing Routes
+  */
+Route::group(['as' => 'listing::'], function() {
+
+    // Index
+    Route::get('listings', [
+        'as'   => 'index',
+        'uses' => 'ListingController@index',
+    ]);
+
+    // Show
+    Route::get('listing/{listing}', [
+        'as'   => 'show',
+        'uses' => 'ListingController@show',
+    ]);
+});
+
+/**
   * Department Routes
   */
 Route::group(['as' => 'department::'], function() {
