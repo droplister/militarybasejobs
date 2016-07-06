@@ -24,6 +24,11 @@ class Organization extends Model
         return $this->belongsTo(Organization::class, 'parent_id');
     }
 
+    public function facilities()
+    {
+        return $this->belongsToMany(Facility::class);
+    }
+
     public function listings()
     {
         return $this->hasMany(Listing::class);

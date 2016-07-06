@@ -139,6 +139,9 @@ class UsajobsFetch extends Command
         // Relate Facility Locations
         $listing->locations()->sync($facility->locations()->pluck('id')->toArray(), false);
 
+        // Relate Facility to Organization
+        $facility->organizations()->sync([$organization->id], false);
+
         // Tag Listing with Filters
         $this->tagListingWithFilters($listing, $result);
     }

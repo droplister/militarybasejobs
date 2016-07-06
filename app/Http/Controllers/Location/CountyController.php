@@ -13,7 +13,7 @@ class CountyController extends Controller
      */
     public function index()
     {
-        $counties = Location::counties()->get();
+        $counties = Location::counties()->orderBy('name', 'asc')->get();
 
         return view('counties.index', compact('counties'));
     }
@@ -27,9 +27,9 @@ class CountyController extends Controller
 
         $state = $county->parent;
 
-        $listings = $county->listings()->paginate(50);
+        $listings = $county->listings()->orderBy('identifier', 'desc')->paginate(50);
 
-        $facilities = $county->facilities;
+        $facilities = $county->facilities()->orderBy('name', 'asc')->get();
 
         return view('counties.show', compact('county', 'state', 'listings', 'facilities'));
     }

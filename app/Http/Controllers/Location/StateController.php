@@ -25,11 +25,11 @@ class StateController extends Controller
     {
         $state = Location::find($state);
 
-        $listings = $state->listings()->paginate(50);
+        $listings = $state->listings()->orderBy('identifier', 'desc')->paginate(50);
 
-        $counties = $state->children;
+        $counties = $state->children()->orderBy('name', 'asc')->get();
 
-        $facilities = $state->facilities;
+        $facilities = $state->facilities()->orderBy('name', 'asc')->get();
 
         return view('states.show', compact('state', 'listings', 'counties', 'facilities'));
     }

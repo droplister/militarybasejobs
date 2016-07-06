@@ -102,7 +102,7 @@ class Listing extends Model
 
     public function states()
     {
-        return $this->locations()->states()->get();
+        return $this->locations()->states()->orderBy('name', 'asc')->get();
     }
 
     public function whoMayApply()

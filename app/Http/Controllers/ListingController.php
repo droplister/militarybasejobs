@@ -11,7 +11,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $listings = Listing::get();
+        $listings = Listing::orderBy('identifier', 'desc')->paginate(50);
 
         return view('listings.index', compact('listings'));
     }
@@ -23,7 +23,7 @@ class ListingController extends Controller
     {
         $listing = Listing::whereIdentifier($listing)->first();
 
-        $facilities = $listing->facilities;
+        $facilities = $listing->facilities()->orderBy('name', 'asc')->get();
         $organization = $listing->organization;
 
         $states = $listing->states();

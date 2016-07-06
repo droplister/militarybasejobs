@@ -24,6 +24,11 @@ class Facility extends Model
         return $this->belongsToMany(Location::class);
     }
 
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class);
+    }
+
     // FUNCTIONS
 
     /**

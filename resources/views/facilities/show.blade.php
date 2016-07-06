@@ -3,7 +3,7 @@
 @if(count($listings))
     <ul>
         @foreach($listings as $listing)
-            <li><a href="{{ url(route('listing::show', ['listing' => $listing->identifier])) }}">{{ $listing->name }}</a></li>
+            <li>{{ ($listing->facilities->count() == 1 ? '*' : '') }}<a href="{{ url(route('listing::show', ['listing' => $listing->identifier])) }}">{{ $listing->name }}</a></li>
         @endforeach
     </ul>
 @endif
@@ -19,3 +19,11 @@
         @endforeach
     @endif
 </p>
+
+@if(count($organizations))
+    <ul>
+        @foreach($organizations as $child_organization)
+            <li><a href="{{ url(route('organization::show', ['organization' => $child_organization->id])) }}">{{ $child_organization->name }}</a></li>
+        @endforeach
+    </ul>
+@endif
