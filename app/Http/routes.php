@@ -71,13 +71,25 @@ Route::group(['as' => 'department::'], function() {
     // Index
     Route::get('departments', [
         'as'   => 'index',
-        'uses' => 'DepartmentController@index',
+        'uses' => 'Department\DepartmentController@index',
     ]);
 
     // Show
     Route::get('department/{department}', [
         'as'   => 'show',
-        'uses' => 'DepartmentController@show',
+        'uses' => 'Department\DepartmentController@show',
+    ]);
+
+    // Organization - Index
+    Route::get('organizations', [
+        'as'   => 'organization::index',
+        'uses' => 'Department\OrganizationController@index',
+    ]);
+
+    // Organization - Show
+    Route::get('organization/{organization}', [
+        'as'   => 'organization::show',
+        'uses' => 'Department\OrganizationController@show',
     ]);
 });
 

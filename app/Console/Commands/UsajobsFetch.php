@@ -150,11 +150,28 @@ class UsajobsFetch extends Command
      */
     private function fetchOrganization($result)
     {
-        // Department (Parent)
-        $department = Department::createDepartment(trim($result->MatchedObjectDescriptor->DepartmentName));
+        if (! empty($result->MatchedObjectDescriptor->DepartmentName))
+        {
+            // Part of Department
+            if (strpos($result->MatchedObjectDescriptor->OrganizationName, ' Agency Wide'))
+            {
+                // Agency Wide
+                $organization = Department::createDepartment(trim($result->MatchedObjectDescriptor->DepartmentName));
+            }
+            else
+            {
+                // Regular Nesting
+                $department = Department::createDepartment(trim($result->MatchedObjectDescriptor->DepartmentName));
+                $organization = Department::createDepartment(trim($result->MatchedObjectDescriptor->OrganizationName), $department->id);
+            }
+        }
+        else
+        {
+            // Single Organization
+            $organization = Department::createDepartment(trim($result->MatchedObjectDescriptor->OrganizationName));
+        }
 
-        // Organization
-        return Department::createDepartment(trim($result->MatchedObjectDescriptor->OrganizationName), $department->id);
+        return $organization;
     }
 
     /**

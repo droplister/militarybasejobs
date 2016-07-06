@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Facility;
 
-use Illuminate\Http\Request;
-
 class FacilityController extends Controller
 {
     /**

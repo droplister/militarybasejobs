@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Department;
 
 use App\Department;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DepartmentController extends Controller
 {
@@ -13,7 +13,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::departments()->with('children')->get();
+        $departments = Department::departments()->with('children')->orderBy('name', 'asc')->get();
 
         return view('departments.index', compact('departments'));
     }
@@ -25,14 +25,7 @@ class DepartmentController extends Controller
     {
         $department = Department::find($department);
 
-        if ($department->isParent())
-        {
-            $listings = $department->departmentListings;
-        }
-        else
-        {
-            $listings = $department->listings;
-        }
+        $listings = $department->departmentListings;
 
         return view('departments.show', compact('department', 'listings'));
     }
