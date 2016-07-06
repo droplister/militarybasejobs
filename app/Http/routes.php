@@ -80,3 +80,21 @@ Route::group(['as' => 'department::'], function() {
         'uses' => 'DepartmentController@show',
     ]);
 });
+
+/**
+  * Facility Routes
+  */
+Route::group(['as' => 'facility::'], function() {
+
+    // Index
+    Route::get('facilities', [
+        'as'   => 'index',
+        'uses' => 'FacilityController@index',
+    ]);
+
+    // Show
+    Route::get('facility/{facility}', [
+        'as'   => 'show',
+        'uses' => 'FacilityController@show',
+    ]);
+});
