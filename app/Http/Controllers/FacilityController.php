@@ -23,7 +23,7 @@ class FacilityController extends Controller
     {
         $facility = Facility::find($facility);
 
-        $listings = $facility->listings()->orderBy('identifier', 'desc')->paginate(20);
+        $listings = $facility->listings()->orderBy('identifier', 'desc')->paginate(15);
 
         $organizations = $facility->organizations()->orderBy('name', 'asc')->get();
 

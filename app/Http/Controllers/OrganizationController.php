@@ -25,11 +25,11 @@ class OrganizationController extends Controller
 
         if ($organization->isParent() && $organization->children()->exists())
         {
-            $listings = $organization->childrenListings()->orderBy('identifier', 'desc')->paginate(50);
+            $listings = $organization->childrenListings()->orderBy('identifier', 'desc')->paginate(20);
         }
         else
         {
-            $listings = $organization->listings()->orderBy('identifier', 'desc')->paginate(50);
+            $listings = $organization->listings()->orderBy('identifier', 'desc')->paginate(20);
         }
 
         $parent = $organization->parent;

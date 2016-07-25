@@ -16,7 +16,7 @@
 
     <div class="row">
 
-        <div class="col-md-2 sidebar">
+        <div class="col-md-2 col-md-offset-1 sidebar">
             <h3>Agency</h3>
             @if(count($organizations))
                 <ul>
@@ -38,8 +38,8 @@
         <div class="col-md-6 listings">
 
             <div class="page-header">
-                <h1>{{ $facility->name }} Jobs <small>Page {{ $listings->currentPage() }} of {{ $listings->lastPage() }}</small></h1>
-                <p>There are {{ $facility->organizations->count() }} federal agencies looking to hire {{ $listings->total() }} personnel near {{ $facility->name }}, {{ $facility->state()->name }}.</p>
+                <h1>{{ $facility->name }}</h1>
+                <p>There are {{ $facility->organizations->count() }} federal agencies filling {{ $listings->total() }} positions near {{ $facility->name }}, {{ $facility->state()->name }}.</p>
             </div>
 
             @if(count($listings))

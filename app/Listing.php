@@ -106,7 +106,7 @@ class Listing extends Model
         $others_count = $total_count - 1;
         $facility = $this->facilities()->first()->name;
 
-        if ($facility_name) $facility = $facility_name;
+        if ($facility_name !== null) $facility = $facility_name;
 
         return ($total_count === 1 ? $facility : "<span data-toggle='tooltip' data-placement='bottom' title='{$total_count} facilities have this position'>{$facility} <small>+{$others_count}</small></span>");
     }
