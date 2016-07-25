@@ -1,0 +1,46 @@
+.sidebar {
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.listings .page-header h1 small {
+    float: right;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.listing {
+    margin-bottom: 15px;
+}
+
+.listing-title a {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.listing-meta {
+    font-size: 14px;
+}
+
+.listing-meta span {
+    color: #777;
+}
+
+.listing-pay {
+    font-size: 14px;
+}
+
+.listing-details p {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+
+.listing-details span {
+    color: #777;
+    font-size: 13px;
+}

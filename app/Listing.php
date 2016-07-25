@@ -100,6 +100,17 @@ class Listing extends Model
         return $listing;
     }
 
+    public function facilityTeaser($facility_name=null)
+    {
+        $total_count = $this->facilities()->count();
+        $others_count = $total_count - 1;
+        $facility = $this->facilities()->first()->name;
+
+        if ($facility_name) $facility = $facility_name;
+
+        return ($total_count === 1 ? $facility : "<span data-toggle='tooltip' data-placement='bottom' title='{$total_count} facilities have this position'>{$facility} <small>+{$others_count}</small></span>");
+    }
+
     public function states()
     {
         return $this->locations()->states()->orderBy('name', 'asc')->get();
@@ -115,14 +126,41 @@ class Listing extends Model
         return $this->filters()->jobCategory()->get();
     }
 
+    public function jobCategory()
+    {
+        return $this->filters()->jobCategory()->skip(1)->take(1)->first();
+    }
+
     public function jobGrades()
     {
         return $this->filters()->jobGrade()->get();
     }
 
+    public function jobGrade()
+    {
+        return $this->filters()->jobGrade()->first();
+    }
+
+    public function grade()
+    {
+        $grade = $this->jobGrade()->code;
+        $lo_grade = sprintf("%02d", $this->low_grade);
+        $hi_grade = sprintf("%02d", $this->high_grade);
+        $category = $this->jobCategory()->code;
+
+        $range = ($lo_grade === $hi_grade ? $lo_grade : "{$lo_grade}/{$hi_grade}");
+
+        return "{$grade}-{$category}-{$range}";
+    }
+
     public function positionSchedules()
     {
         return $this->filters()->positionSchedule()->get();
+    }
+
+    public function positionSchedule()
+    {
+        return $this->filters()->positionSchedule()->first();
     }
 
     public function positionTypes()

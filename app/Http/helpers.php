@@ -1,5 +1,10 @@
 <?php
 
+function maxLength($text, $limit)
+{
+    return (strlen($text) <= $limit ? $text : trim(substr($text, 0, $limit)) . '...');
+}
+
 function getFullStateName($abbreviation)
 {
     if ($abbreviation === null) return null;

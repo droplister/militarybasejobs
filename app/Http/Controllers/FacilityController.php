@@ -11,7 +11,7 @@ class FacilityController extends Controller
      */
     public function index()
     {
-        $facilities = Facility::orderBy('name', 'asc')->get();
+        $facilities = Facility::orderBy('name', 'asc')->paginate(30);
 
         return view('facilities.index', compact('facilities'));
     }
@@ -23,7 +23,7 @@ class FacilityController extends Controller
     {
         $facility = Facility::find($facility);
 
-        $listings = $facility->listings()->orderBy('identifier', 'desc')->paginate(50);
+        $listings = $facility->listings()->orderBy('identifier', 'desc')->paginate(20);
 
         $organizations = $facility->organizations()->orderBy('name', 'asc')->get();
 

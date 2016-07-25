@@ -59,11 +59,11 @@ class UsajobsFetch extends Command
 
         foreach ($facilities as $facility)
         {
-            $page_count = $this->fetchApiPageCount($facility);
+            $total_pages = $this->fetchApiPageCount($facility);
 
-            for ($this_page = 1; $this_page <= $page_count; $this_page++)
+            for ($current_page = 1; $current_page <= $total_pages; $current_page++)
             {
-                $results = $this->fetchApiPageResults($facility, $this_page);
+                $results = $this->fetchApiPageResults($facility, $current_page);
 
                 foreach ($results->SearchResult->SearchResultItems as $result)
                 {
