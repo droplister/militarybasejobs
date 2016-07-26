@@ -21,6 +21,7 @@ class CreateOrganizationsTable extends Migration
 
             // Organization
             $table->string('name');
+            $table->string('slug')->unique();
         });
     }
 

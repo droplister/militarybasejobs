@@ -2,8 +2,6 @@
 
 @section('title', "{$organization->name} - MilitaryBaseJobs.com")
 
-@section('description', "There are {$organization->listings->count()} jobs with the {$organization->name} on military bases in the United States. Find employment on a military base near you today!")
-
 @section('javascript')
     <script>
         $(function () {
@@ -21,7 +19,7 @@
             @if(count($children))
                 <ul>
                     @foreach($children as $child_organization)
-                        <li><a href="{{ url(route('organization::show', ['organization' => $child_organization->id])) }}">{{ $child_organization->name }}</a></li>
+                        <li><a href="{{ url(route('organization::show', ['organization' => $child_organization->slug])) }}">{{ $child_organization->name }}</a></li>
                     @endforeach
                 </ul>
             @endif
@@ -29,7 +27,7 @@
             @if(count($facilities))
                 <ul>
                     @foreach($facilities as $facility)
-                        <li><a href="{{ url(route('facility::show', ['facility' => $facility->id])) }}">{{ $facility->name }}</a></li>
+                        <li><a href="{{ url(route('facility::show', ['facility' => $facility->slug])) }}">{{ $facility->name }}</a></li>
                     @endforeach
                 </ul>
             @endif
@@ -39,7 +37,6 @@
 
             <div class="page-header">
                 <h1>{{ $organization->name }}</h1>
-                <p>The {{ $organization->name }} is hiring personnel for {{ $listings->total() }} positions on {{ $organization->facilities->count() }} military installations.</p>
             </div>
 
             @if(count($listings))

@@ -21,15 +21,15 @@ class OrganizationController extends Controller
      */
     public function show($organization)
     {
-        $organization = Organization::find($organization);
+        $organization = Organization::whereSlug($organization)->first();
 
         if ($organization->isParent() && $organization->children()->exists())
         {
-            $listings = $organization->childrenListings()->orderBy('identifier', 'desc')->paginate(20);
+            $listings = $organization->childrenListings()->orderBy('identifier', 'desc')->paginate(10);
         }
         else
         {
-            $listings = $organization->listings()->orderBy('identifier', 'desc')->paginate(20);
+            $listings = $organization->listings()->orderBy('identifier', 'desc')->paginate(10);
         }
 
         $parent = $organization->parent;

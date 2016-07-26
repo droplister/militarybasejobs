@@ -69,13 +69,13 @@ Route::group(['as' => 'location::'], function() {
 Route::group(['as' => 'organization::'], function() {
 
     // Index
-    Route::get('organizations', [
+    Route::get('browse', [
         'as'   => 'index',
         'uses' => 'OrganizationController@index',
     ]);
 
     // Show
-    Route::get('organization/{organization}', [
+    Route::get('agency/{organization}', [
         'as'   => 'show',
         'uses' => 'OrganizationController@show',
     ]);
@@ -87,14 +87,20 @@ Route::group(['as' => 'organization::'], function() {
 Route::group(['as' => 'facility::'], function() {
 
     // Index
-    Route::get('facilities', [
+    Route::get('directory', [
         'as'   => 'index',
         'uses' => 'FacilityController@index',
     ]);
 
     // Show
-    Route::get('facility/{facility}', [
+    Route::get('{facility}', [
         'as'   => 'show',
         'uses' => 'FacilityController@show',
+    ]);
+
+    // Delete
+    Route::get('{facility}/delete', [
+        'as'   => 'delete',
+        'uses' => 'FacilityController@delete',
     ]);
 });

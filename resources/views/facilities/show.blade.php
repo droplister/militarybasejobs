@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', "Military, Civilian Jobs at {$facility->name} - MilitaryBaseJobs.com")
+@section('title', "Military, Civilian Jobs at {$facility->title()} - MilitaryBaseJobs.com")
 
 @section('description', "There are {$facility->listings->count()} job listings for open positions at {$facility->name}, {$facility->state()->name}. Find employment on a military base near you today!")
 
@@ -38,8 +38,8 @@
         <div class="col-md-6 listings">
 
             <div class="page-header">
-                <h1>{{ $facility->name }}</h1>
-                <p>There are {{ $facility->organizations->count() }} federal agencies filling {{ $listings->total() }} positions near {{ $facility->name }}, {{ $facility->state()->name }}.</p>
+                <h1>{{ $facility->h1() }}</h1>
+                <p>There are {{ $facility->organizations->count() }} federal agencies with {{ $listings->total() }} job listings near {{ $facility->title() }}, {{ $facility->state()->name }}.</p>
             </div>
 
             @if(count($listings))

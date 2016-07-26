@@ -9,7 +9,7 @@ class Organization extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'parent_id', 'name', 
+        'parent_id', 'name', 'slug', 
     ];
 
     // RELATIONS
@@ -53,8 +53,16 @@ class Organization extends Model
      */
     public static function createOrganization($name, $parent_id=null)
     {
-        $new_organization = compact('parent_id', 'name');
-        return static::firstOrCreate($new_organization);
+        $organization = static::firstOrNew(compact('name'));
+
+        if (! $organization->exists)
+        {
+            $slug = str_slug($name);
+            $organization_data = compact('parent_id', 'name', 'slug');
+            $organization->fill($organization_data)->save();
+        }
+
+        return $organization;
     }
 
     public function isParent()

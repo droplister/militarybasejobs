@@ -6,7 +6,7 @@
 
     <div class="row">
 
-        <div class="col-md-2 sidebar">
+        <div class="col-md-2 col-md-offset-1 sidebar">
             <p>
                 @if($organization->parent()->exists())
                     <a href="{{ url(route('organization::show', ['organization' => $organization->parent->id])) }}">{{ $organization->parent->name }}</a>
@@ -42,11 +42,19 @@
             </div>
 
             <p>{{ $listing->url }}</p>
+
+            <h3>Who May Apply</h3>
+            <p>{{ $who_may_apply->name }} ({{ $who_may_apply->code }})</p>
+
+            <h3>Job Summary</h3>
             <p>{{ $listing->summary }}</p>
+
+            <h3>Qualifications</h3>
             <p>{{ $listing->qualifications }}</p>
+
             <p>{{ $listing->low_grade }}-{{ $listing->high_grade }}</p>
             <p>${{ $listing->min_pay }} to ${{ $listing->max_pay }} {{ $listing->pay_interval }}</p>
-            <p>{{ $who_may_apply->name }} ({{ $who_may_apply->code }})</p>
+
             <p>
                 @if(count($job_categories))
                     @foreach($job_categories as $job_category)

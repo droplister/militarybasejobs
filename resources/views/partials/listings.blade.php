@@ -4,7 +4,7 @@
             <a href="{{ url(route('listing::show', ['listing' => $listing->identifier])) }}">{{ $listing->name }}{{ ( strpos($listing->name, $listing->grade()) || strpos($listing->name, $listing->jobCategory()->code) || strpos($listing->name, $listing->jobGrade()->code) ? '' : ', ' . $listing->grade() ) }}</a>
         </div>
         <div class="listing-meta">
-            <a href="{{ url(route('organization::show', ['organization' => $listing->organization->id])) }}">{{ $listing->organization->name }}</a> - <span>{!! $listing->facilityTeaser($facility) !!}</span>
+            <a href="{{ url(route('organization::show', ['organization' => $listing->organization->slug])) }}">{{ $listing->organization->name }}</a> - <span>{!! $listing->facilityTeaser($facility) !!}</span>
         </div>
         <div class="listing-pay">
             ${{ $listing->max_pay }} / {{ $listing->pay_interval }}

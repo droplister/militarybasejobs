@@ -71,7 +71,7 @@ class UsajobsFetch extends Command
                 }
             }
 
-            $this->comment("Processed {$page_count} page(s): {$facility->name}");
+            $this->comment("Processed {$total_pages} page(s): {$facility->name}");
         }
     }
 

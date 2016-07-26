@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Facility;
+use App\Location; 
 
 class FacilityController extends Controller
 {
@@ -11,9 +12,9 @@ class FacilityController extends Controller
      */
     public function index()
     {
-        $facilities = Facility::orderBy('name', 'asc')->paginate(30);
+        $states = Location::states()->orderBy('name', 'asc')->with('facilities')->get();
 
-        return view('facilities.index', compact('facilities'));
+        return view('facilities.index', compact('states'));
     }
 
     /**
@@ -21,9 +22,9 @@ class FacilityController extends Controller
      */
     public function show($facility)
     {
-        $facility = Facility::find($facility);
+        $facility = Facility::whereSlug($facility)->first();
 
-        $listings = $facility->listings()->orderBy('identifier', 'desc')->paginate(15);
+        $listings = $facility->listings()->orderBy('identifier', 'desc')->paginate(10);
 
         $organizations = $facility->organizations()->orderBy('name', 'asc')->get();
 
@@ -32,5 +33,17 @@ class FacilityController extends Controller
         $counties = $state->children()->orderBy('name', 'asc')->get();
 
         return view('facilities.show', compact('facility', 'listings', 'organizations', 'state', 'counties'));
+    }
+
+    /**
+     * Delete
+     */
+    public function delete($facility)
+    {
+        $facility = Facility::whereSlug($facility)->first();
+
+        $facility->delete();
+
+        return redirect()->route('facility::index');
     }
 }
