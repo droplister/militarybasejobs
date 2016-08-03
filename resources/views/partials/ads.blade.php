@@ -1,5 +1,7 @@
 <div class="ad-space">
 
+    <?php /* ?>
+
     <div class="updates">
         <form>
             <div class="form-group">
@@ -10,6 +12,8 @@
             </div>
         </form>
     </div>
+
+    <?php */ ?>
 
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- mbj-facility-sidebar -->

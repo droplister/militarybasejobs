@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="col-sm-2 col-xs-6">
-                        <a href="#" class="btn btn-block btn-primary">Save Job</a>
+                        <a href="{{ Auth::guest() ? url(route('auth::register')) : url(route('listing::save', ['listing' => $listing->c_number])) }}" class="btn btn-block btn-primary">Save Job</a>
                         <div class="share hidden-xs hidden-sm">
                             <small><i class="glyphicon glyphicon-share"></i></small> 
                             <a class="a2a_dd" href="https://www.addtoany.com/share">Share Listing</a>
@@ -35,6 +35,10 @@
                 </div>
 
             </div>
+
+            @if(@session('success'))
+                <div class="alert alert-success">Saved to your <a href="{{ url(route('user::listings')) }}">Watchlist</a>!</div>
+            @endif
 
             <div class="row">
 
@@ -123,7 +127,7 @@
                     <div class="row take-action">
 
                         <div class="col-sm-4 col-xs-6">
-                            <a href="#" class="btn btn-block btn-primary">Save Job</a>
+                            <a href="{{ Auth::guest() ? url(route('auth::register')) : url(route('listing::save', ['listing' => $listing->c_number])) }}" class="btn btn-block btn-primary">Save Job</a>
                         </div>
 
                         <div class="col-sm-4 col-xs-6">

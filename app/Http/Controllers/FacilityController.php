@@ -24,7 +24,7 @@ class FacilityController extends Controller
      */
     public function show($facility, Request $request)
     {
-        $facility = Facility::whereSlug($facility)->first();
+        $facility = Facility::whereSlug($facility)->firstorfail();
 
         $listings = $facility->listings();
 

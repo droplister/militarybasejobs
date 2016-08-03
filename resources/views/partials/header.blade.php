@@ -25,6 +25,7 @@
                     <li><a href="{{ url(route('auth::login')) }}"><small><i class="glyphicon glyphicon-log-in"></i></small> Login</a></li>
                     <li><a href="{{ url(route('auth::register')) }}"><small><i class="glyphicon glyphicon-user"></i></small> Register</a></li>
                 @else
+                    <li><a href="{{ url(route('user::listings')) }}"><small><i class="glyphicon glyphicon-eye-open"></i></small> Watchlist</a></li>
                     <li><a href="{{ url(route('auth::logout')) }}"><small><i class="glyphicon glyphicon-log-out"></i></small> Logout</a></li>
                 @endif
             </ul>

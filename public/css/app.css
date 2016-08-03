@@ -14,6 +14,14 @@ a, a:hover, a:active {
     margin: 100px 0px;
 }
 
+.new-saved-job {
+    background: #FFFFBB;
+}
+
+.saved-job {
+    background: #FFFFDD;
+}
+
 .job .page-header {
     margin-top: 20px;
 }

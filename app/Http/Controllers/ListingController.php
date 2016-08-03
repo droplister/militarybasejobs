@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Listing;
 
+use Illuminate\Http\Request;
+
 class ListingController extends Controller
 {
     /**
@@ -68,5 +70,29 @@ class ListingController extends Controller
         }
 
         return view('listings.show', compact('listing', 'related'));
+    }
+
+    /**
+     * Save
+     */
+    public function save($listing, Request $request)
+    {
+        $listing = Listing::whereCNumber($listing)->first();
+
+        $request->user()->listings()->sync([$listing->id], false);
+
+        return redirect($request->server('HTTP_REFERER'))->with('success', $listing->c_number);
+    }
+
+    /**
+     * Remove
+     */
+    public function remove($listing, Request $request)
+    {
+        $listing = Listing::whereCNumber($listing)->first();
+
+        $listings = $request->user()->listings()->detach([$listing->id]);
+
+        return redirect()->route('user::listings');
     }
 }

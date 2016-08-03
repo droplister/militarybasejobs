@@ -78,6 +78,20 @@ Route::group(['as' => 'auth::'], function() {
 });
 
 /**
+  * User Routes
+  */
+Route::group(['as' => 'user::'], function() {
+
+    // Index
+    Route::get('watchlist', [
+        'as'   => 'listings',
+        'uses' => 'UserController@listings',
+        'middleware' => 'auth'
+    ]);
+
+});
+
+/**
   * Category Routes
   */
 Route::group(['as' => 'category::'], function() {
@@ -101,16 +115,24 @@ Route::group(['as' => 'category::'], function() {
   */
 Route::group(['as' => 'listing::'], function() {
 
-    // Index
-    Route::get('listings', [
-        'as'   => 'index',
-        'uses' => 'ListingController@index',
-    ]);
-
     // Show
     Route::get('listing/{listing}', [
         'as'   => 'show',
         'uses' => 'ListingController@show',
+    ]);
+
+    // Save
+    Route::get('listing/{listing}/save', [
+        'as'   => 'save',
+        'uses' => 'ListingController@save',
+        'middleware' => 'auth'
+    ]);
+
+    // Remove
+    Route::get('listing/{listing}/remove', [
+        'as'   => 'remove',
+        'uses' => 'ListingController@remove',
+        'middleware' => 'auth'
     ]);
 });
 
