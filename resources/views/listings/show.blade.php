@@ -2,7 +2,7 @@
 
 @section('title', "{$listing->name} - MilitaryBaseJobs.com")
 
-@section('description', htmlspecialchars($listing->summary ? maxLength($listing->summary, 200) : maxLength($listing->qualifications, 200)))
+@section('description', $listing->a_number . ': ' . htmlspecialchars($listing->summary ? maxLength($listing->summary, 200) : maxLength($listing->qualifications, 200)))
 
 @section('content')
 

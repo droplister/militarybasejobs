@@ -26,7 +26,7 @@
                             <option></option>
 
                             @foreach($parent->$method()->select('job_grade')->groupBy('job_grade')->orderBy('job_grade', 'asc')->select('job_grade')->get() as $grade)
-                                <option @if($grade->job_grade == $request->job_grade) selected @endif >{{ $grade->job_grade }}</option>
+                                <option{{ $grade->job_grade == $request->job_grade ? ' selected' : '' }}>{{ $grade->job_grade }}</option>
                             @endforeach
 
                         </select>
@@ -40,7 +40,7 @@
                             <option></option>
 
                             @foreach($parent->$method()->select('low_grade')->groupBy('low_grade')->orderBy('low_grade', 'asc')->select('low_grade')->get() as $grade)
-                                <option @if($grade->low_grade == $request->low_grade) selected @endif >{{ $grade->low_grade }}</option>
+                                <option{{ $grade->low_grade == $request->low_grade ? ' selected' : '' }}>{{ $grade->low_grade }}</option>
                             @endforeach
 
                         </select>
@@ -54,7 +54,7 @@
                             <option></option>
 
                             @foreach($parent->$method()->select('high_grade')->groupBy('high_grade')->orderBy('high_grade', 'desc')->select('high_grade')->get() as $grade)
-                                <option @if($grade->high_grade == $request->high_grade) selected @endif >{{ $grade->high_grade }}</option>
+                                <option{{ $grade->high_grade == $request->high_grade ? ' selected' : '' }}>{{ $grade->high_grade }}</option>
                             @endforeach
 
                         </select>
@@ -72,7 +72,7 @@
                             <option></option>
 
                             @foreach($parent->$method()->groupBy('schedule_code')->orderBy('schedule', 'asc')->select(['schedule', 'schedule_code'])->get() as $schedule)
-                                <option value="{{ $schedule->schedule_code }}" @if($schedule->schedule_code == $request->schedule) selected @endif >{{ $schedule->schedule }}</option>
+                                <option value="{{ $schedule->schedule_code }}"{{ $schedule->schedule_code == $request->schedule ? ' selected' : '' }}>{{ $schedule->schedule }}</option>
                             @endforeach
 
                         </select>

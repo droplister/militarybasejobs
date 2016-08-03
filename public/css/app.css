@@ -10,6 +10,10 @@ a, a:hover, a:active {
     border-color: #e7e7e7;
 }
 
+.auth {
+    margin: 100px 0px;
+}
+
 .job .page-header {
     margin-top: 20px;
 }

@@ -14,8 +14,8 @@
     <title>@yield('title')</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url('css/app.css') }}">
-
+    <link rel="stylesheet" href="http://militarybasejobs.com/css/app.css">
+ 
 </head>
 
 <body>

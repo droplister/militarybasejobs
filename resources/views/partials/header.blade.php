@@ -18,13 +18,15 @@
 
             <ul class="nav navbar-nav">
                 <li><a href="{{ url(route('facility::index')) }}"><small><i class="glyphicon glyphicon-list-alt"></i></small> Browse</a></li>
-                <li><a href="#"><small><i class="glyphicon glyphicon-search"></i></small> Search</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><small><i class="glyphicon glyphicon-edit"></i></small> Articles</a></li>
-                <li><a href="#"><small><i class="glyphicon glyphicon-log-in"></i></small> Login</a></li>
-                <li><a href="#"><small><i class="glyphicon glyphicon-user"></i></small> Register</a></li>
+                @if(Auth::guest())
+                    <li><a href="{{ url(route('auth::login')) }}"><small><i class="glyphicon glyphicon-log-in"></i></small> Login</a></li>
+                    <li><a href="{{ url(route('auth::register')) }}"><small><i class="glyphicon glyphicon-user"></i></small> Register</a></li>
+                @else
+                    <li><a href="{{ url(route('auth::logout')) }}"><small><i class="glyphicon glyphicon-log-out"></i></small> Logout</a></li>
+                @endif
             </ul>
 
         </div>

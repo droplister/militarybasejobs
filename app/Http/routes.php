@@ -15,6 +15,67 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/**
+  * Auth Routes
+  */
+Route::group(['as' => 'auth::'], function() {
+
+    // Login
+    Route::get('login', [
+        'as'   => 'login',
+        'uses' => 'Auth\AuthController@showLoginForm',
+        'middleware' => 'guest'
+    ]);
+
+    // Login - Post
+    Route::post('login', [
+        'as'   => 'post::login',
+        'uses' => 'Auth\AuthController@login',
+        'middleware' => 'guest'
+    ]);
+
+    // Logout
+    Route::get('logout', [
+        'as'   => 'logout',
+        'uses' => 'Auth\AuthController@logout',
+    ]);
+
+    // Register
+    Route::get('register', [
+        'as'   => 'register',
+        'uses' => 'Auth\AuthController@showRegistrationForm',
+        'middleware' => 'guest'
+    ]);
+
+    // Register - Post
+    Route::post('register', [
+        'as'   => 'post::register',
+        'uses' => 'Auth\AuthController@register',
+        'middleware' => 'guest'
+    ]);
+
+    // Reset
+    Route::get('password/reset/{token?}', [
+        'as'   => 'reset',
+        'uses' => 'Auth\PasswordController@showResetForm',
+        'middleware' => 'guest'
+    ]);
+
+    // Reset - Post
+    Route::post('password/reset', [
+        'as'   => 'post::reset',
+        'uses' => 'Auth\PasswordController@reset',
+        'middleware' => 'guest'
+    ]);
+
+    // Reset - Send
+    Route::post('password/send', [
+        'as'   => 'send::reset',
+        'uses' => 'Auth\PasswordController@sendResetLinkEmail',
+        'middleware' => 'guest'
+    ]);
+
+});
 
 /**
   * Category Routes
