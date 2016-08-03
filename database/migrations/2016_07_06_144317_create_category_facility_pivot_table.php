@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFacilityLocationPivotTable extends Migration
+class CreateCategoryFacilityPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateFacilityLocationPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('facility_location', function (Blueprint $table) {
+        Schema::create('category_facility', function (Blueprint $table) {
             // Relations
+            $table->integer('category_id')->unsigned();
             $table->integer('facility_id')->unsigned();
-            $table->integer('location_id')->unsigned();
 
             // Foreign Keys
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('facility_id')->references('id')->on('facilities');
-            $table->foreign('location_id')->references('id')->on('locations');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateFacilityLocationPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('facility_location');
+        Schema::drop('category_facility');
     }
 }

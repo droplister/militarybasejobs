@@ -9,7 +9,7 @@ class Location extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'parent_id', 'type', 'code', 'name',  
+        'parent_id', 'type', 'code', 'name',  'slug', 'content', 
     ];
 
     // RELATIONS
@@ -24,6 +24,11 @@ class Location extends Model
         return $this->belongsTo(Location::class, 'parent_id');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function listings()
     {
         return $this->belongsToMany(Listing::class);
@@ -35,6 +40,11 @@ class Location extends Model
     }
 
     // SCOPES
+
+    public function scopeTopLevel($query)
+    {
+        return $query->whereNull('parent_id');
+    }
 
     public function scopeStates($query)
     {
@@ -53,7 +63,31 @@ class Location extends Model
      */
     public static function createLocation($type, $code, $name, $parent_id=null)
     {
-        $new_location = compact('parent_id', 'type', 'code', 'name');
-        return static::firstOrCreate($new_location);
+        $location = static::firstOrNew(compact('parent_id', 'type', 'code', 'name'));
+
+        if (! $location->exists)
+        {
+            $slug = str_slug($name);
+
+            if ($count = Location::where('slug', 'like', $slug . '%')->count())
+            {
+                if ($parent_id)
+                {
+                    $count = Location::find($parent_id)->slug;
+                }
+
+                $slug = "{$slug}-{$count}";
+            }
+
+            $location_data = compact('parent_id', 'type', 'code', 'name', 'slug');
+            $location->fill($location_data)->save();
+        }
+
+        return $location;
+    }
+
+    public function isParent()
+    {
+        return ($this->parent_id === null ? true : false);
     }
 }

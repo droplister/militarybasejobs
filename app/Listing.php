@@ -11,8 +11,10 @@ class Listing extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'organization_id', 'identifier', 'announcement', 'name', 'url', 'summary', 'qualifications', 'low_grade', 'high_grade', 'min_pay', 'max_pay', 'pay_interval', 
+        'category_id', 'organization_id', 'a_number', 'c_number', 'name', 'url', 'summary', 'qualifications', 'open_to', 'open_to_code', 'schedule', 'schedule_code', 'position', 'position_code', 'job_grade', 'low_grade', 'high_grade', 'pay_type', 'min_pay', 'max_pay', 'published_at', 'ends_at',
     ];
+
+    protected $dateFormat = 'Y-m-d';
 
     protected $dates = [
         'published_at', 'ends_at',
@@ -48,19 +50,12 @@ class Listing extends Model
         return $value;
     }
 
-    public function setPublishedAtAttribute($value)
-    {
-        $value = substr($value, 0, 10);
-        $this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d', $value);
-    }
-
-    public function setEndsAtAttribute($value)
-    {
-        $value = substr($value, 0, 10);
-        $this->attributes['ends_at'] = Carbon::createFromFormat('Y-m-d', $value);
-    }
-
     // RELATIONS
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function organization()
     {
@@ -77,9 +72,11 @@ class Listing extends Model
         return $this->belongsToMany(Location::class);
     }
 
-    public function filters()
+    // SCOPES
+
+    public function scopeActive($query)
     {
-        return $this->morphToMany(Filter::class, 'filterable');
+        return $query->where('ends_at', '>', Carbon::now()->toDateString());
     }
 
     // FUNCTIONS
@@ -87,84 +84,27 @@ class Listing extends Model
     /**
      * Create Listing Model
      */
-    public static function createListing($organization_id, $identifier, $announcement, $name, $url, $summary, $qualifications, $low_grade, $high_grade, $min_pay, $max_pay, $pay_interval, $published_at, $ends_at)
+    public static function createListing($category_id, $organization_id, $c_number, $a_number, $name, $url, $summary, $qualifications, $open_to, $open_to_code, $schedule, $schedule_code, $position, $position_code, $job_grade, $low_grade, $high_grade, $pay_type, $min_pay, $max_pay, $published_at, $ends_at)
     {
-        $listing = static::firstOrNew(compact('identifier'));
+        $listing = static::firstOrNew(compact('c_number'));
 
         if (! $listing->exists)
         {
-            $listing_data = compact('organization_id', 'identifier', 'announcement', 'name', 'url', 'summary', 'qualifications', 'low_grade', 'high_grade', 'min_pay', 'max_pay', 'pay_interval', 'published_at', 'ends_at');
+            $listing_data = compact('category_id', 'organization_id', 'c_number', 'a_number', 'name', 'url', 'summary', 'qualifications', 'open_to', 'open_to_code', 'schedule', 'schedule_code', 'position', 'position_code', 'job_grade', 'low_grade', 'high_grade', 'pay_type', 'min_pay', 'max_pay', 'published_at', 'ends_at');
             $listing->fill($listing_data)->save();
         }
 
         return $listing;
     }
 
-    public function facilityTeaser($facility_name=null)
+    public function grade()
     {
-        $total_count = $this->facilities()->count();
-        $others_count = $total_count - 1;
-        $facility = $this->facilities()->first()->name;
-
-        if ($facility_name !== null) $facility = $facility_name;
-
-        return ($total_count === 1 ? $facility : "<span data-toggle='tooltip' data-placement='bottom' title='{$total_count} facilities have this position'>{$facility} <small>+{$others_count}</small></span>");
+        $grade = ($this->low_grade == $this->high_grade ? $this->low_grade : "{$this->low_grade}/{$this->high_grade}");
+        return "{$this->job_grade}-{$this->category->code}-{$grade}";
     }
 
     public function states()
     {
         return $this->locations()->states()->orderBy('name', 'asc')->get();
-    }
-
-    public function whoMayApply()
-    {
-        return $this->filters()->whoMayApply()->first();
-    }
-
-    public function jobCategories()
-    {
-        return $this->filters()->jobCategory()->get();
-    }
-
-    public function jobCategory()
-    {
-        return $this->filters()->jobCategory()->skip(1)->take(1)->first();
-    }
-
-    public function jobGrades()
-    {
-        return $this->filters()->jobGrade()->get();
-    }
-
-    public function jobGrade()
-    {
-        return $this->filters()->jobGrade()->first();
-    }
-
-    public function grade()
-    {
-        $grade = $this->jobGrade()->code;
-        $lo_grade = sprintf("%02d", $this->low_grade);
-        $hi_grade = sprintf("%02d", $this->high_grade);
-        $category = $this->jobCategory()->code;
-
-        $range = ($lo_grade === $hi_grade ? $lo_grade : "{$lo_grade}/{$hi_grade}");
-
-        return "{$grade}-{$category}-{$range}";
-    }
-
-    public function positionSchedules()
-    {
-        return $this->filters()->positionSchedule()->get();
-    }
-
-    public function positionSchedule()
-    {
-        return $this->filters()->positionSchedule()->first();
-    }
-
-    public function positionTypes()
-    {
-        return $this->filters()->positionType()->get();
     }
 }

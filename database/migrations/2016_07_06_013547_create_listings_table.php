@@ -16,25 +16,34 @@ class CreateListingsTable extends Migration
             $table->increments('id');
 
             // Relation
+            $table->integer('category_id')->unsigned()->index()->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->integer('organization_id')->unsigned()->index()->nullable();
             $table->foreign('organization_id')->references('id')->on('organizations');
 
             // Listing
-            $table->string('identifier')->unique();
-            $table->string('announcement');
+            $table->string('c_number')->unique();
+            $table->string('a_number');
             $table->string('name');
             $table->string('url');
             $table->text('summary');
             $table->text('qualifications');
+            $table->text('open_to');
+            $table->integer('open_to_code');
+            $table->string('schedule');
+            $table->integer('schedule_code');
+            $table->string('position');
+            $table->integer('position_code');
+            $table->string('job_grade');
             $table->integer('low_grade');
             $table->integer('high_grade');
+            $table->string('pay_type');
             $table->integer('min_pay');
             $table->integer('max_pay');
-            $table->string('pay_interval');
 
             // Timestamps
-            $table->timestamp('published_at');
-            $table->timestamp('ends_at');
+            $table->date('published_at');
+            $table->date('ends_at');
         });
     }
 

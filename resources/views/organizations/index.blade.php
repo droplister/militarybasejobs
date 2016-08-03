@@ -1,31 +1,43 @@
 @extends('layouts.default')
 
-@section('title', 'Agency Directory - MilitaryBaseJobs.com')
+@section('title', 'Agencies - MilitaryBaseJobs.com')
 
 @section('content')
 
     <div class="row">
 
-        <div class="col-md-2 col-md-offset-1 sidebar">
-        </div>
-
-        <div class="col-md-6 listings">
+        <div class="col-md-6 col-md-offset-3 listings">
 
             <div class="page-header">
-                <h1>Federal Agencies</h1>
+                <h1>Agencies</h1>
+                <p>{{ App\Organization::count() }} federal agencies hiring near {{ App\Facility::count() }} military bases.</p>
             </div>
+
+            @foreach($organizations as $organization)
+
+                @if($organization->has_children)
+
+                    <h3><a href="{{ url(route('organization::show', ['organization' => $organization->slug])) }}">{{ $organization->name }}</a></h3>
+
+                    <ul>
+                        @foreach($organization->children()->orderBy('name', 'asc')->get() as $organization)
+                            <li><a href="{{ url(route('organization::show', ['organization' => $organization->slug])) }}">{{ $organization->name }}</a></li>
+                        @endforeach
+                    </ul>
+
+                @endif
+
+            @endforeach
+
+            <h3>Additional Agencies</h3>
 
             <ul>
                 @foreach($organizations as $organization)
-                    <li><a href="{{ url(route('organization::show', ['organization' => $organization->slug])) }}">{{ $organization->name }}</a>
-                        @if(count($organization->children))
-                            <ul>
-                                @foreach($organization->children()->orderBy('name', 'asc')->get() as $child_organization)
-                                    <li><a href="{{ url(route('organization::show', ['organization' => $child_organization->slug])) }}">{{ $child_organization->name }}</a></li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </li>
+
+                    @if(! $organization->has_children)
+                        <li><a href="{{ url(route('organization::show', ['organization' => $organization->slug])) }}">{{ $organization->name }}</a></li>
+                    @endif
+
                 @endforeach
             </ul>
 

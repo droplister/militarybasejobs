@@ -21,33 +21,42 @@ class ListingController extends Controller
      */
     public function show($listing)
     {
-        $listing = Listing::whereIdentifier($listing)->first();
+        $listing = Listing::whereCNumber($listing)->first();
 
-        $facilities = $listing->facilities()->orderBy('name', 'asc')->get();
-        $organization = $listing->organization;
+        $related = '';
 
-        $states = $listing->states();
+        if ($listing->facilities->count() == 1)
+        {
+            $facility = $listing->facilities()->first();
 
-        $who_may_apply = $listing->whoMayApply();
+            $related = $facility->listings()->active()->whereOrganizationId($listing->organization_id)->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
 
-        $job_categories = $listing->jobCategories();
-        $job_grades = $listing->jobGrades();
+            if (count($related) < 3)
+            {
+                $related = $facility->listings()->active()->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
+            }
 
-        $position_schedules = $listing->positionSchedules();
-        $position_types = $listing->positionTypes();
+            if (count($related) < 3)
+            {
+                $related = $facility->listings()->active()->whereOrganizationId($listing->organization_id)->orderByRaw("RAND()")->take(3)->get();
+            }
+        }
 
-        return view('listings.show',
-            compact(
-                'listing',
-                'facilities',
-                'organization',
-                'states',
-                'who_may_apply',
-                'job_categories',
-                'job_grades',
-                'position_schedules',
-                'position_types'
-            )
-        );
+        if (count($related) < 3)
+        {
+           $related = Listing::active()->whereOrganizationId($listing->organization_id)->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
+        }
+
+        if (count($related) < 3)
+        {
+            $related = Listing::active()->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
+        }
+
+        if (count($related) < 3)
+        {
+            $related = Listing::active()->whereOrganizationId($listing->organization_id)->orderByRaw("RAND()")->take(3)->get();
+        }
+
+        return view('listings.show', compact('listing', 'related'));
     }
 }

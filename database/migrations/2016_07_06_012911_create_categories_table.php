@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrganizationsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,18 @@ class CreateOrganizationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('organizations', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
 
             // Relation
             $table->integer('parent_id')->unsigned()->index()->nullable();
-            $table->foreign('parent_id')->references('id')->on('organizations');
+            $table->foreign('parent_id')->references('id')->on('categories');
 
-            // Organization
+            // Category
             $table->string('code')->unique();
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('content')->nullable();
-            $table->boolean('has_children');
         });
     }
 
@@ -35,6 +34,6 @@ class CreateOrganizationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('organizations');
+        Schema::drop('categories');
     }
 }

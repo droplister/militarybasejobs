@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use Curl\Curl;
-use App\Filter;
 use App\Listing;
+use App\Category;
 use App\Facility;
 use App\Organization;
 
@@ -109,6 +109,9 @@ class UsajobsFetch extends Command
      */
     private function processResult($facility, $result)
     {
+        // Get Category
+        $category = $this->fetchCategory($result);
+
         // Get Organization
         $organization = $this->fetchOrganization($result);
 
@@ -117,18 +120,26 @@ class UsajobsFetch extends Command
 
         // Create Listing
         $listing = Listing::createListing(
+            $category->id,
             $organization->id,
-            $data['identifier'],
-            $data['announcement'],
+            $data['c_number'],
+            $data['a_number'],
             $data['name'],
             $data['url'],
             $data['summary'],
             $data['qualifications'],
+            $data['open_to'],
+            $data['open_to_code'],
+            $data['schedule'],
+            $data['schedule_code'],
+            $data['position'],
+            $data['position_code'],
+            $data['job_grade'],
             $data['low_grade'],
             $data['high_grade'],
+            $data['pay_type'],
             $data['min_pay'],
             $data['max_pay'],
-            $data['pay_interval'],
             $data['published_at'],
             $data['ends_at']
         );
@@ -139,17 +150,33 @@ class UsajobsFetch extends Command
         // Relate Facility Locations
         $listing->locations()->sync($facility->locations()->pluck('id')->toArray(), false);
 
+        // Relate Category Locations
+        $category->locations()->sync($facility->locations()->pluck('id')->toArray(), false);
+
         // Relate Facility to Organization
         $facility->organizations()->sync([$organization->id], false);
 
-        // Tag Listing with Filters
-        $this->tagListingWithFilters($listing, $result);
+        // Relate Facility to Category
+        $facility->categories()->sync([$category->id], false);
     }
 
     /**
-     * Get Related Departments
+     * Get Job Categories
      *
-     * @return \App\Department
+     * @return \App\Category
+     */
+    private function fetchCategory($result)
+    {
+        $parent = Category::createCategory(trim($result->MatchedObjectDescriptor->JobCategory[0]->Code), trim($result->MatchedObjectDescriptor->JobCategory[0]->Name));
+        $category = Category::createCategory(trim($result->MatchedObjectDescriptor->JobCategory[1]->Code), trim($result->MatchedObjectDescriptor->JobCategory[1]->Name), $parent->id);
+
+        return $category;
+    }
+
+    /**
+     * Get Related Organizations
+     *
+     * @return \App\Organization
      */
     private function fetchOrganization($result)
     {
@@ -166,6 +193,8 @@ class UsajobsFetch extends Command
                 // Regular Nesting
                 $parent = Organization::createOrganization(trim($result->MatchedObjectDescriptor->DepartmentName));
                 $organization = Organization::createOrganization(trim($result->MatchedObjectDescriptor->OrganizationName), $parent->id);
+
+                $parent->update(['has_children' => 1]);
             }
         }
         else
@@ -184,65 +213,34 @@ class UsajobsFetch extends Command
      */
     private function fetchDataArray($result)
     {
+        $published_at = trim($result->MatchedObjectDescriptor->PublicationStartDate);
+        $published_at = substr($published_at, 0, 10);
+
+        $ends_at = trim($result->MatchedObjectDescriptor->ApplicationCloseDate);
+        $ends_at = substr($ends_at, 0, 10);
+
         // Target Data (Trimmed)
         return [
-            'identifier'     => trim($result->MatchedObjectId),
-            'announcement'   => trim($result->MatchedObjectDescriptor->PositionID),
+            'c_number'       => trim($result->MatchedObjectId),
+            'a_number'       => trim($result->MatchedObjectDescriptor->PositionID),
             'name'           => trim($result->MatchedObjectDescriptor->PositionTitle),
             'url'            => trim($result->MatchedObjectDescriptor->ApplyURI[0]),
             'summary'        => trim($result->MatchedObjectDescriptor->UserArea->Details->JobSummary),
             'qualifications' => trim($result->MatchedObjectDescriptor->QualificationSummary),
+            'open_to'        => trim($result->MatchedObjectDescriptor->UserArea->Details->WhoMayApply->Name),
+            'open_to_code'   => trim($result->MatchedObjectDescriptor->UserArea->Details->WhoMayApply->Code),
+            'schedule'       => trim($result->MatchedObjectDescriptor->PositionSchedule[0]->Name),
+            'schedule_code'  => trim($result->MatchedObjectDescriptor->PositionSchedule[0]->Code),
+            'position'       => trim($result->MatchedObjectDescriptor->PositionOfferingType[0]->Name),
+            'position_code'  => trim($result->MatchedObjectDescriptor->PositionOfferingType[0]->Code),
+            'job_grade'      => trim($result->MatchedObjectDescriptor->JobGrade[0]->Code),
             'low_grade'      => trim($result->MatchedObjectDescriptor->UserArea->Details->LowGrade),
             'high_grade'     => trim($result->MatchedObjectDescriptor->UserArea->Details->HighGrade),
+            'pay_type'       => trim($result->MatchedObjectDescriptor->PositionRemuneration[0]->RateIntervalCode),
             'min_pay'        => trim($result->MatchedObjectDescriptor->PositionRemuneration[0]->MinimumRange),
             'max_pay'        => trim($result->MatchedObjectDescriptor->PositionRemuneration[0]->MaximumRange),
-            'pay_interval'   => trim($result->MatchedObjectDescriptor->PositionRemuneration[0]->RateIntervalCode),
-            'published_at'   => trim($result->MatchedObjectDescriptor->PublicationStartDate),
-            'ends_at'        => trim($result->MatchedObjectDescriptor->ApplicationCloseDate),
+            'published_at'   => $published_at,
+            'ends_at'        => $ends_at,
         ];
-    }
-
-    /**
-     * Relate Filters to Listing
-     *
-     * @return void
-     */
-    private function tagListingWithFilters($listing, $result)
-    {
-        // New Listings Only
-        if ($listing->wasRecentlyCreated)
-        {
-            $filters = array();
-
-            // Who May Apply
-            $filters[] = Filter::createFilter('who_may_apply', trim($result->MatchedObjectDescriptor->UserArea->Details->WhoMayApply->Code), trim($result->MatchedObjectDescriptor->UserArea->Details->WhoMayApply->Name));
-
-            // Job Category
-            foreach ($result->MatchedObjectDescriptor->JobCategory as $job_category)
-            {
-                $filters[] = Filter::createFilter('job_category', trim($job_category->Code), trim($job_category->Name));
-            }
-
-            // Job Grade
-            foreach ($result->MatchedObjectDescriptor->JobGrade as $job_grade)
-            {
-                $filters[] = Filter::createFilter('job_grade', trim($job_grade->Code));
-            }
-
-            // Position Schedule
-            foreach ($result->MatchedObjectDescriptor->PositionSchedule as $position_schedule)
-            {
-                $filters[] = Filter::createFilter('position_schedule', trim($position_schedule->Code), trim($position_schedule->Name));
-            }
-
-            // Position Type
-            foreach ($result->MatchedObjectDescriptor->PositionOfferingType as $position_type)
-            {
-                $filters[] = Filter::createFilter('position_type', trim($position_type->Code), trim($position_type->Name));
-            }
-
-            // Save Relation
-            $listing->filters()->saveMany($filters);
-        }
     }
 }

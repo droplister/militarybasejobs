@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        Commands\InsertLinks::class,
+        Commands\InsertJobLinks::class,
         Commands\UsajobsFetch::class,
     ];
 

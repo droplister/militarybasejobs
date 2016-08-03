@@ -2,37 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Organization;
+use App\Location;
 
 use Illuminate\Http\Request;
 
-class OrganizationController extends Controller
+class LocationController extends Controller
 {
     /**
      * Index
      */
     public function index()
     {
-        $organizations = Organization::topLevel()->with('children')->orderBy('name', 'asc')->get();
+        $states = Location::states()->with('children')->orderBy('name', 'asc')->get();
 
-        return view('organizations.index', compact('organizations'));
+        return view('locations.index', compact('states'));
     }
 
     /**
      * Show
      */
-    public function show($organization, Request $request)
+    public function show($location,  Request $request)
     {
-        $organization = Organization::whereSlug($organization)->first();
+        $location = Location::whereSlug($location)->first();
 
-        if ($organization->isParent() && $organization->children()->exists())
-        {
-            $listings = $organization->childrenListings();
-        }
-        else
-        {
-            $listings = $organization->listings();
-        }
+        $listings = $location->listings();
 
         if ($request->has('job_grade'))
         {
@@ -56,6 +49,6 @@ class OrganizationController extends Controller
 
         $listings = $listings->active()->orderBy('published_at', 'desc')->paginate(10);
 
-        return view('organizations.show', compact('organization', 'listings', 'request'));
+        return view('locations.show', compact('location', 'listings', 'request'));
     }
 }

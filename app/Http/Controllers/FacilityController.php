@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Facility;
 use App\Location; 
 
+use Illuminate\Http\Request;
+
 class FacilityController extends Controller
 {
     /**
@@ -20,19 +22,43 @@ class FacilityController extends Controller
     /**
      * Show
      */
-    public function show($facility)
+    public function show($facility, Request $request)
     {
         $facility = Facility::whereSlug($facility)->first();
 
-        $listings = $facility->listings()->orderBy('identifier', 'desc')->paginate(10);
+        $listings = $facility->listings();
 
-        $organizations = $facility->organizations()->orderBy('name', 'asc')->get();
+        if ($request->has('job_grade'))
+        {
+            $listings->whereJobGrade($request->job_grade);
+        }
 
-        $state = $facility->state();
+        if ($request->has('low_grade'))
+        {
+            $listings->where('low_grade', '>=', $request->low_grade);
+        }
 
-        $counties = $state->children()->orderBy('name', 'asc')->get();
+        if ($request->has('high_grade'))
+        {
+            $listings->where('high_grade', '<=', $request->high_grade);
+        }
 
-        return view('facilities.show', compact('facility', 'listings', 'organizations', 'state', 'counties'));
+        if ($request->has('schedule'))
+        {
+            $listings->whereScheduleCode($request->schedule);
+        }
+
+        if ($request->has('q'))
+        {
+            foreach(explode(' ', $request->q) as $search)
+            {
+                $listings->where('summary', 'like', '%' . $search . '%');
+            }
+        }
+
+        $listings = $listings->active()->orderBy('published_at', 'desc')->paginate(10);
+
+        return view('facilities.show', compact('facility', 'listings', 'request'));
     }
 
     /**

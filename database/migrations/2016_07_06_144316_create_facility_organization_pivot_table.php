@@ -18,8 +18,8 @@ class CreateFacilityOrganizationPivotTable extends Migration
             $table->integer('organization_id')->unsigned();
 
             // Foreign Keys
-            $table->foreign('facility_id')->references('id')->on('facilities')->onDelete('cascade');
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->foreign('facility_id')->references('id')->on('facilities');
+            $table->foreign('organization_id')->references('id')->on('organizations');
         });
     }
 

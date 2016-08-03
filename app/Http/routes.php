@@ -15,6 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+/**
+  * Category Routes
+  */
+Route::group(['as' => 'category::'], function() {
+
+    // Index
+    Route::get('job', [
+        'as'   => 'index',
+        'uses' => 'CategoryController@index',
+    ]);
+
+    // Show
+    Route::get('job/{category}', [
+        'as'   => 'show',
+        'uses' => 'CategoryController@show',
+    ]);
+
+});
+
 /**
   * Listing Routes
   */
@@ -38,29 +58,18 @@ Route::group(['as' => 'listing::'], function() {
   */
 Route::group(['as' => 'location::'], function() {
 
-    // County - Index
-    Route::get('counties', [
-        'as'   => 'county::index',
-        'uses' => 'Location\CountyController@index',
+    // Index
+    Route::get('map', [
+        'as'   => 'index',
+        'uses' => 'LocationController@index',
     ]);
 
-    // County - Show
-    Route::get('county/{county}', [
-        'as'   => 'county::show',
-        'uses' => 'Location\CountyController@show',
+    // Show
+    Route::get('map/{location}', [
+        'as'   => 'show',
+        'uses' => 'LocationController@show',
     ]);
 
-    // State - Index
-    Route::get('states', [
-        'as'   => 'state::index',
-        'uses' => 'Location\StateController@index',
-    ]);
-
-    // State - Show
-    Route::get('state/{state}', [
-        'as'   => 'state::show',
-        'uses' => 'Location\StateController@show',
-    ]);
 });
 
 /**
@@ -69,16 +78,59 @@ Route::group(['as' => 'location::'], function() {
 Route::group(['as' => 'organization::'], function() {
 
     // Index
-    Route::get('browse', [
+    Route::get('gov', [
         'as'   => 'index',
         'uses' => 'OrganizationController@index',
     ]);
 
     // Show
-    Route::get('agency/{organization}', [
+    Route::get('gov/{organization}', [
         'as'   => 'show',
         'uses' => 'OrganizationController@show',
     ]);
+});
+
+/**
+  * Static Routes
+  */
+Route::group(['as' => 'static::'], function() {
+
+    // About
+    Route::get('about', [
+        'as'   => 'about',
+        'uses' => 'StaticController@getAbout',
+    ]);
+
+    // Data
+    Route::get('data', [
+        'as'   => 'data',
+        'uses' => 'StaticController@getData',
+    ]);
+
+    // Disclaimer
+    Route::get('disclaimer', [
+        'as'   => 'disclaimer',
+        'uses' => 'StaticController@getDisclaimer',
+    ]);
+
+    // Privacy
+    Route::get('privacy', [
+        'as'   => 'privacy',
+        'uses' => 'StaticController@getPrivacy',
+    ]);
+
+    // Support
+    Route::get('support', [
+        'as'   => 'support',
+        'uses' => 'StaticController@getSupport',
+    ]);
+
+    // Terms
+    Route::get('terms', [
+        'as'   => 'terms',
+        'uses' => 'StaticController@getTerms',
+    ]);
+
 });
 
 /**
@@ -87,7 +139,7 @@ Route::group(['as' => 'organization::'], function() {
 Route::group(['as' => 'facility::'], function() {
 
     // Index
-    Route::get('directory', [
+    Route::get('browse', [
         'as'   => 'index',
         'uses' => 'FacilityController@index',
     ]);

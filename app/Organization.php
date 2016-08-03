@@ -9,7 +9,7 @@ class Organization extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'parent_id', 'name', 'slug', 
+        'parent_id', 'code', 'name', 'slug', 'content', 'has_children'
     ];
 
     // RELATIONS
@@ -39,7 +39,7 @@ class Organization extends Model
         return $this->hasManyThrough(Listing::class, Organization::class, 'parent_id', 'organization_id');
     }
 
-    // RELATIONS
+    // SCOPES
 
     public function scopeTopLevel($query)
     {
@@ -53,12 +53,20 @@ class Organization extends Model
      */
     public static function createOrganization($name, $parent_id=null)
     {
-        $organization = static::firstOrNew(compact('name'));
+        $code = $name;
+
+        $organization = static::firstOrNew(compact('code'));
+
+        $name = str_replace('U. S. ', 'U.S. ', $name);
+        $name = str_replace(' The ', ' the ', $name);
+        $name = str_replace(' And ', ' and ', $name);
+        $name = str_replace(' Of ', ' of ', $name);
+        $name = str_replace('/', ' / ', $name);
 
         if (! $organization->exists)
         {
             $slug = str_slug($name);
-            $organization_data = compact('parent_id', 'name', 'slug');
+            $organization_data = compact('parent_id', 'code', 'name', 'slug');
             $organization->fill($organization_data)->save();
         }
 

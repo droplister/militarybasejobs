@@ -2,36 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Organization;
+use App\Category;
 
 use Illuminate\Http\Request;
 
-class OrganizationController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Index
      */
     public function index()
     {
-        $organizations = Organization::topLevel()->with('children')->orderBy('name', 'asc')->get();
+        $categories = Category::topLevel()->with('children')->orderBy('code', 'asc')->get();
 
-        return view('organizations.index', compact('organizations'));
+        return view('categories.index', compact('categories'));
     }
 
     /**
      * Show
      */
-    public function show($organization, Request $request)
+    public function show($category, Request $request)
     {
-        $organization = Organization::whereSlug($organization)->first();
+        $category = Category::whereSlug($category)->first();
 
-        if ($organization->isParent() && $organization->children()->exists())
+        if ($category->isParent() && $category->children()->exists())
         {
-            $listings = $organization->childrenListings();
+            $listings = $category->childrenListings();
         }
         else
         {
-            $listings = $organization->listings();
+            $listings = $category->listings();
         }
 
         if ($request->has('job_grade'))
@@ -56,6 +56,6 @@ class OrganizationController extends Controller
 
         $listings = $listings->active()->orderBy('published_at', 'desc')->paginate(10);
 
-        return view('organizations.show', compact('organization', 'listings', 'request'));
+        return view('categories.show', compact('category', 'listings', 'request'));
     }
 }

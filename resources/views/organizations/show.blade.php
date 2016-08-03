@@ -4,9 +4,12 @@
 
 @section('javascript')
     <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
+        $(function() {
+           $("form").submit(function() {
+              $(this).find(":input").filter(function(){ return !this.value; }).attr("disabled", "disabled");
+                  return true; // ensure form still submits
+            });
+        });
     </script>
 @endsection
 
@@ -14,33 +17,61 @@
 
     <div class="row">
 
-        <div class="col-md-2 col-md-offset-1 sidebar">
-            <h3>Agency</h3>
-            @if(count($children))
-                <ul>
-                    @foreach($children as $child_organization)
-                        <li><a href="{{ url(route('organization::show', ['organization' => $child_organization->slug])) }}">{{ $child_organization->name }}</a></li>
-                    @endforeach
-                </ul>
-            @endif
-            <h3>Facilities</h3>
-            @if(count($facilities))
-                <ul>
-                    @foreach($facilities as $facility)
-                        <li><a href="{{ url(route('facility::show', ['facility' => $facility->slug])) }}">{{ $facility->name }}</a></li>
-                    @endforeach
-                </ul>
-            @endif
+        <div class="col-md-3 col-sm-4 sidebar">
+            @include('partials.sidebar', ['parent' => $organization, 'method' => ($organization->isParent() ? 'childrenListings' : 'listings'), 'request' => $request])
         </div>
 
-        <div class="col-md-6 listings">
+        <div class="col-md-6 col-sm-8">
 
             <div class="page-header">
                 <h1>{{ $organization->name }}</h1>
+                <p>{{ $listings->total() }} {{ $listings->total() == 1 ? 'job' : 'jobs' }} listed by the {{ $organization->name }} on or near {{ $organization->facilities->count() == 1 || $organization->facilities->count() == 0 ? 'a' : $organization->facilities->count() }} military {{ $organization->facilities->count() == 1 || $organization->facilities->count() == 0 ? 'base' : 'bases' }}.</p>
             </div>
 
             @if(count($listings))
-                @include('partials.listings', ['facility' => null, 'listings' => $listings])
+                @include('partials.listings', ['type' => 'organization', 'listings' => $listings, 'request' => $request])
+            @endif
+
+        </div>
+
+        <div class="col-md-3 col-sm-8 col-md-offset-0 col-sm-offset-4 sidebar">
+
+            @include('partials.ads')
+
+            @if($organization->isParent())
+
+                @if($organization->children()->count())
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><a href="{{ url(route('organization::show', ['organization' => $organization->slug])) }}">{{ $organization->name }}</a></h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                @foreach($organization->children()->orderBy('name', 'asc')->get() as $organization)
+                                    <li><a href="{{ url(route('organization::show', ['organization' => $organization->slug])) }}">{{ $organization->name }}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                @endif
+
+            @else
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><a href="{{ url(route('organization::show', ['organization' => $organization->parent->slug])) }}">{{ $organization->parent->name }}</a></h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            @foreach($organization->parent->children()->orderBy('name', 'asc')->get() as $organization)
+                                <li><a href="{{ url(route('organization::show', ['organization' => $organization->slug])) }}">{{ $organization->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
             @endif
 
         </div>

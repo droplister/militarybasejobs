@@ -23,6 +23,8 @@ class CreateLocationsTable extends Migration
             $table->string('type');
             $table->string('code')->nullable();
             $table->string('name')->nullable();
+            $table->string('slug')->unique();
+            $table->text('content')->nullable();
         });
     }
 

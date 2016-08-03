@@ -2,8 +2,102 @@ a, a:hover, a:active {
     color: #0044CC;
 }
 
-.navbar-default {
-    background-color: #fff;
+.navbar {
+    margin-bottom: 0px;
+}
+
+.panel-default {
+    border-color: #e7e7e7;
+}
+
+.job .page-header {
+    margin-top: 20px;
+}
+
+.job .page-header .btn {
+    margin-top: 25px;
+    border-radius: 0px;
+}
+
+.job .page-header .share {
+    color: #777;
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: right;
+}
+
+.job .link-ad {
+    margin-bottom: 25px;
+}
+
+.result .panel {
+    border-radius: 0px;
+}
+
+.result .panel-heading {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 8px 15px;
+}
+
+.result .timestamps {
+    margin-bottom: 25px;
+}
+
+.result .timestamps span {
+    margin-right: 20px;
+}
+
+.result .job-tabs {
+    margin-top: 30px;
+}
+
+.result .nav-tabs a {
+    font-size: 12px;
+    border-radius: 0;
+    padding: 8px 15px;
+    font-weight: bold;
+    background: #f5f5f5;
+    border: 1px solid #e7e7e7;
+}
+
+.result .nav-tabs .active a,
+.result .nav-tabs .active a:hover,
+.result .nav-tabs .active a:active {
+    color: #333;
+}
+
+.result .tab-pane {
+    border: 1px solid #e7e7e7;
+    border-top: 0;
+    padding: 25px 15px 15px 15px;
+    text-align: justify;
+}
+
+.take-action {
+    margin-top: 25px;
+}
+
+.take-action .btn {
+    border-radius: 0px;
+}
+
+.related {
+    margin-top: 40px;
+}
+
+.infobar .side-ad {
+    margin: 5px 0px 51px 0px;
+}
+
+.infobar .panel {
+    margin-top: 25px;
+    border-radius: 0px;
+}
+
+.infobar .others {
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 .sidebar {
@@ -11,9 +105,70 @@ a, a:hover, a:active {
     margin-top: 20px;
 }
 
-.sidebar ul {
+.sidebar ul, .infobar ul {
     list-style: none;
+    line-height: 20px;
     padding-left: 0px;
+    margin-bottom: 5px;
+}
+
+.sidebar .panel {
+    margin-top: 10px;
+    border-radius: 0px;
+    border-color: #e7e7e7;
+}
+
+.sidebar .panel-heading {
+    padding: 10px;
+    border-color: #e7e7e7;
+}
+
+.sidebar .panel h3, .infobar .panel h3 {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sidebar .panel h3 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar .panel-body {
+    padding: 10px;
+}
+
+.ad-space {
+    margin-bottom: 30px;
+}
+
+.updates {
+    padding: 10px;
+    margin-top: 10px;
+    background: #f8f8f8;
+    margin-bottom: 30px;
+    border: 1px solid #e7e7e7;
+}
+
+.updates label {
+    display: block;
+}
+
+.updates .form-group {
+    margin-bottom: 0px;
+}
+
+.updates .form-control {
+    width: 190px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.updates p {
+    margin-bottom: 0px;
+}
+
+.listings {
+    margin-bottom: 45px;
 }
 
 .listing {
@@ -50,4 +205,148 @@ a, a:hover, a:active {
 .listing-details span {
     color: #777;
     font-size: 13px;
+}
+
+.listings .pagination {
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+
+.content p {
+    text-align: justify;
+}
+
+h3 a, h3 a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+footer {
+    color: #555;
+    font-size: 12px;
+    margin-top: 50px;
+    padding: 30px 50px;
+    background: #f8f8f8;
+    text-transform: uppercase;
+    border-top: 1px solid #e7e7e7;
+}
+
+footer a, footer a:hover {
+    color: #555;
+}
+
+footer img {
+    margin-top: -3px;
+}
+
+footer .footer-nav {
+    list-style: none;
+    margin-bottom: 5px;
+    background: #f8f8f8;
+    padding: 8px 0px 8px 4px;
+}
+
+footer .footer-nav li {
+    display: inline-block;
+}
+
+footer .left-side li {
+    margin-right: 15px;
+}
+
+footer .right-side {
+    text-align: right;
+}
+
+footer .right-side li {
+    margin-left: 15px;
+}
+
+footer .copyright a {
+    margin-left: 15px;
+}
+
+@media (max-width: 767px) {
+
+    .page-header {
+        margin-top: 20px;
+    }
+
+    .job .page-header {
+        padding-bottom: 30px;
+    }
+
+    .job .page-header p {
+        margin-top: 15px;
+    }
+
+    .job .page-header .btn {
+        margin-top: 15px;
+    }
+
+    .job .timestamps {
+        text-align: center;
+    }
+
+    .result .nav-tabs a {
+        font-size: 14px;
+    }
+
+    .related .page-header {
+        padding-bottom: 10px;
+    }
+
+    .infobar .side-ad {
+        margin: 25px 0px;
+    }
+
+    .listing {
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .listing div {
+        margin: 6px 0px;
+    }
+
+    .listing-details span {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .sidebar ul, .infobar ul {
+        line-height: 25px;
+    }
+
+    footer {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    footer .footer-nav li {
+        display: block;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-bottom: 15px;
+    }
+
+    footer img {
+        margin-bottom: 20px;
+    }
+
+    footer .right-side {
+        text-align: left;
+    }
+
+    footer .copyright {
+        padding-left: 4px;
+    }
+
+    footer .copyright a {
+        display: block;
+        margin-top: 15px;
+        margin-left: 0px;
+        margin-right: 15px;
+    }
+
 }
