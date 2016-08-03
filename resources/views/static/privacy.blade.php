@@ -2,6 +2,8 @@
 
 @section('title', 'Privacy Policy - MilitaryBaseJobs.com')
 
+@section('description', 'We at MilitaryBaseJobs.com know that you care how your information is used, and we appreciate your trust. This notice describes our privacy policy. By visiting us, you are accepting the privacy policy described below.')
+
 @section('content')
 
     <div class="row">

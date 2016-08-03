@@ -10,7 +10,7 @@
 
             <div class="page-header">
                 <h1>Locations</h1>
-                <p>{{ App\Location::topLevel()->count() }} states and {{ App\Location::count() - App\Location::topLevel()->count() }} counties with {{ App\Listing::count() }} jobs on military bases.</p>
+                <p>{{ App\Location::count() - App\Location::topLevel()->count() }} counties with {{ App\Listing::count() }} jobs on military bases.</p>
             </div>
 
             @foreach($states as $state)

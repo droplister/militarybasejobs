@@ -41,6 +41,7 @@ a, a:hover, a:active {
 }
 
 .result .timestamps {
+    margin-top: 10px;
     margin-bottom: 25px;
 }
 
@@ -83,11 +84,11 @@ a, a:hover, a:active {
 }
 
 .related {
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 .infobar .side-ad {
-    margin: 5px 0px 51px 0px;
+    margin: 5px 0px 61px 0px;
 }
 
 .infobar .panel {

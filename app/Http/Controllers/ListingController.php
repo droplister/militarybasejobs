@@ -29,32 +29,42 @@ class ListingController extends Controller
         {
             $facility = $listing->facilities()->first();
 
-            $related = $facility->listings()->active()->whereOrganizationId($listing->organization_id)->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
+            $related = $facility->listings()->active()->whereNotIn('id', [$listing->id])->whereOrganizationId($listing->organization_id)->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
 
             if (count($related) < 3)
             {
-                $related = $facility->listings()->active()->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
+                $related = $facility->listings()->active()->whereNotIn('id', [$listing->id])->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
             }
 
             if (count($related) < 3)
             {
-                $related = $facility->listings()->active()->whereOrganizationId($listing->organization_id)->orderByRaw("RAND()")->take(3)->get();
+                $related = $facility->listings()->active()->whereNotIn('id', [$listing->id])->whereCategoryId($listing->category->parent->id)->orderByRaw("RAND()")->take(3)->get();
+            }
+
+            if (count($related) < 3)
+            {
+                $related = $facility->listings()->active()->whereNotIn('id', [$listing->id])->whereOrganizationId($listing->organization_id)->orderByRaw("RAND()")->take(3)->get();
             }
         }
 
         if (count($related) < 3)
         {
-           $related = Listing::active()->whereOrganizationId($listing->organization_id)->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
+           $related = Listing::active()->whereNotIn('id', [$listing->id])->whereOrganizationId($listing->organization_id)->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
         }
 
         if (count($related) < 3)
         {
-            $related = Listing::active()->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
+            $related = Listing::active()->whereNotIn('id', [$listing->id])->whereCategoryId($listing->category_id)->orderByRaw("RAND()")->take(3)->get();
         }
 
         if (count($related) < 3)
         {
-            $related = Listing::active()->whereOrganizationId($listing->organization_id)->orderByRaw("RAND()")->take(3)->get();
+            $related = Listing::active()->whereNotIn('id', [$listing->id])->whereCategoryId($listing->category->parent->id)->orderByRaw("RAND()")->take(3)->get();
+        }
+
+        if (count($related) < 3)
+        {
+            $related = Listing::active()->whereNotIn('id', [$listing->id])->whereOrganizationId($listing->organization_id)->orderByRaw("RAND()")->take(3)->get();
         }
 
         return view('listings.show', compact('listing', 'related'));

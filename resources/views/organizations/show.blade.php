@@ -2,6 +2,8 @@
 
 @section('title', "{$organization->name} - MilitaryBaseJobs.com")
 
+@section('description', "The {$organization->name} is hiring military and civilian personnel, both part and full-time, for jobs on or near military bases. Learn more on our website!")
+
 @section('javascript')
     <script>
         $(function() {

@@ -2,7 +2,7 @@
 
 @section('title', "{$listing->name} - MilitaryBaseJobs.com")
 
-@section('description', ($listing->summary ? maxLength($listing->summary, 200) : maxLength($listing->qualifications, 200)))
+@section('description', htmlspecialchars($listing->summary ? maxLength($listing->summary, 200) : maxLength($listing->qualifications, 200)))
 
 @section('content')
 
@@ -56,7 +56,7 @@
                     <div class="row">
 
                         <div class="col-sm-6">
-                            @include('partials.panel', ['heading' => 'Pay Range:', 'body' => '$' . $listing->min_pay . ' to $' . $listing->max_pay . ' / ' . $listing->pay_type])
+                            @include('partials.panel', ['heading' => 'Pay Range:', 'body' => '$' . ($listing->min_pay == $listing->max_pay ? $listing->min_pay : $listing->min_pay . ' to $' . $listing->max_pay) . ' / ' . $listing->pay_type])
                             @include('partials.panel', ['heading' => 'Job Grade:', 'body' => $listing->grade()])
                         </div>
 
