@@ -93,6 +93,8 @@ class ListingController extends Controller
 
         $listings = $request->user()->listings()->detach([$listing->id]);
 
-        return redirect()->route('user::listings');
+        $redirect = (strpos($request->server('HTTP_REFERER'), 'watchlist') ? url(route('user::listings')) : $request->server('HTTP_REFERER'));
+
+        return redirect($redirect);
     }
 }

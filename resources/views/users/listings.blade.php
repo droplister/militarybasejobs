@@ -4,12 +4,12 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="row static">
 
-        <div class="col-md-7 col-md-offset-1">
+        <div class="col-md-7 col-md-offset-2">
 
             <div class="page-header">
-                <h1>My Watchlist <small>Saved Jobs</small></h1>
+                <h1>Active Watchlist <small class="hidden-xs">{{ count($listings) }} Jobs</small></h1>
             </div>
 
             @include('partials.listings', ['type' => 'saved', 'listings' => $listings])

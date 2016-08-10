@@ -26,7 +26,7 @@
                 </ol>
 
                 <div class="copyright">
-                    <p>Copyright &copy; 2016 Family Media LLC. All Rights Reserved. <a href="{{ url(route('static::terms')) }}">Terms</a> <a href="{{ url(route('static::privacy')) }}">Privacy</a> <a href="{{ url(route('static::disclaimer')) }}">Disclaimer</a></p>
+                    <p><span>Copyright &copy; 2016 Family Media LLC. All Rights Reserved.</span> <a href="{{ url(route('static::terms')) }}">Terms</a> <a href="{{ url(route('static::privacy')) }}">Privacy</a> <a href="{{ url(route('static::disclaimer')) }}">Disclaimer</a></p>
                 </div>
 
             </div>

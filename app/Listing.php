@@ -11,7 +11,7 @@ class Listing extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'category_id', 'organization_id', 'a_number', 'c_number', 'name', 'url', 'summary', 'qualifications', 'open_to', 'open_to_code', 'schedule', 'schedule_code', 'position', 'position_code', 'job_grade', 'low_grade', 'high_grade', 'pay_type', 'min_pay', 'max_pay', 'published_at', 'ends_at',
+        'category_id', 'organization_id', 'a_number', 'c_number', 'name', 'url', 'summary', 'qualifications', 'open_to', 'open_to_code', 'schedule', 'schedule_code', 'position', 'position_code', 'job_grade', 'low_grade', 'high_grade', 'pay_type', 'min_pay', 'max_pay', 'published_at', 'ends_at', 'linked', 
     ];
 
     protected $dateFormat = 'Y-m-d';
@@ -84,6 +84,11 @@ class Listing extends Model
         return $query->where('ends_at', '>', Carbon::now()->toDateString());
     }
 
+    public function scopeWithoutLinks($query)
+    {
+        return $query->where('linked', '0');
+    }
+
     // FUNCTIONS
 
     /**
@@ -111,5 +116,10 @@ class Listing extends Model
     public function states()
     {
         return $this->locations()->states()->orderBy('name', 'asc')->get();
+    }
+
+    public function isActive()
+    {
+        return ($this->ends_at > Carbon::now()->toDateString() ? 'true' : 'false');
     }
 }

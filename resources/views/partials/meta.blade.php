@@ -1,4 +1,4 @@
-@if ($type == 'organization' || $type == 'category' || $type == 'location')
+@if ($type == 'organization' || $type == 'category' || $type == 'location' || $type == 'home')
     <?php $facility = $listing->facilities()->orderByRaw("RAND()")->first(); ?>
     <a href="{{ url(route('facility::show', ['facility' => $facility->slug])) }}">{{ $facility->name }}</a> - <span>{{ $listing->schedule }}</span>
 @elseif($type == 'facility')

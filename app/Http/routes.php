@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+    'as'   => 'home',
+    'uses' => 'HomeController@index'
+]);
 
 /**
   * Auth Routes
@@ -87,6 +88,25 @@ Route::group(['as' => 'user::'], function() {
         'as'   => 'listings',
         'uses' => 'UserController@listings',
         'middleware' => 'auth'
+    ]);
+
+});
+
+/**
+  * Search Routes
+  */
+Route::group(['as' => 'job::'], function() {
+
+    // Search
+    Route::get('search', [
+        'as'   => 'search',
+        'uses' => 'SearchController@search'
+    ]);
+
+    // Results
+    Route::get('results', [
+        'as'   => 'results',
+        'uses' => 'SearchController@results'
     ]);
 
 });
@@ -196,10 +216,22 @@ Route::group(['as' => 'static::'], function() {
         'uses' => 'StaticController@getDisclaimer',
     ]);
 
+    // Listings
+    Route::get('listings.xml', [
+        'as'   => 'listings',
+        'uses' => 'StaticController@getListings',
+    ]);
+
     // Privacy
     Route::get('privacy', [
         'as'   => 'privacy',
         'uses' => 'StaticController@getPrivacy',
+    ]);
+
+    // Sitemap
+    Route::get('sitemap.xml', [
+        'as'   => 'sitemap',
+        'uses' => 'StaticController@getSitemap',
     ]);
 
     // Support

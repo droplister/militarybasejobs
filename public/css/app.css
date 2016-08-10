@@ -11,7 +11,7 @@ a, a:hover, a:active {
 }
 
 .auth {
-    margin: 100px 0px;
+    margin: 50px 0px 100px 0px;
 }
 
 .new-saved-job {
@@ -20,6 +20,50 @@ a, a:hover, a:active {
 
 .saved-job {
     background: #FFFFDD;
+}
+
+.home {
+    margin-top: 5px;
+}
+
+.home .panel {
+    margin-bottom: 20px;
+}
+
+.states .panel-heading {
+    font-size: 16px;
+    padding: 8px 15px 7px 15px;
+}
+
+.states ul {
+    font-size: 14px;
+    list-style: none;
+    line-height: 25px;
+    padding-left: 0px;
+    margin-bottom: 6px;
+}
+
+.states li {
+    width: 18%;
+    text-align: center;
+    display: inline-block;
+}
+
+.front .page-header {
+    margin-top: 10px;
+}
+
+.page {
+    margin-top: 5px;
+}
+
+.search {
+    margin: 5px 0px 50px 0px;
+}
+
+.static {
+    margin-top: 5px;
+    margin-bottom: 25px
 }
 
 .job .page-header {
@@ -96,7 +140,7 @@ a, a:hover, a:active {
 }
 
 .related {
-    margin-top: 50px;
+    margin-top: 45px;
 }
 
 .infobar .side-ad {
@@ -151,6 +195,7 @@ a, a:hover, a:active {
 }
 
 .ad-space {
+    margin-top: 10px;
     margin-bottom: 30px;
 }
 
@@ -285,6 +330,38 @@ footer .copyright a {
         margin-top: 20px;
     }
 
+    .home {
+        margin-top: 25px;
+    }
+
+    .search {
+        margin-top: 30px;
+    }
+
+    .home .panel {
+        margin-bottom: 40px;
+    }
+
+    .static {
+        margin-top: 25px;
+    }
+
+    .home-ad {
+        margin-bottom: 25px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .content {
+        margin-bottom: 45px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .col-md-3 .panel {
+        margin: 50px 0px;
+    }
+
     .job .page-header {
         padding-bottom: 30px;
     }
@@ -310,7 +387,7 @@ footer .copyright a {
     }
 
     .infobar .side-ad {
-        margin: 25px 0px;
+        margin: 25px 0px 45px 0px;
     }
 
     .listing {
@@ -332,6 +409,7 @@ footer .copyright a {
     }
 
     footer {
+        margin-top: 15px;
         padding-left: 0px;
         padding-right: 0px;
     }
@@ -355,11 +433,15 @@ footer .copyright a {
         padding-left: 4px;
     }
 
-    footer .copyright a {
+    footer .copyright span {
         display: block;
-        margin-top: 15px;
+    }
+
+    footer .copyright a {
+        margin-top: 20px;
         margin-left: 0px;
-        margin-right: 15px;
+        margin-right: 25px;
+        display: inline-block;
     }
 
 }

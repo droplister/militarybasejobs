@@ -1,6 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+  
+use App\Listing;  
+use App\Category;
+use App\Facility;
+use App\Location;
+use App\Organization;
 
 class StaticController extends Controller
 {
@@ -29,11 +35,34 @@ class StaticController extends Controller
     }
 
     /**
+     * Listings
+     */
+    public function getListings()
+    {
+        $listings = Listing::active()->get();
+
+        return view('static.listings', compact('listings'));
+    }
+
+    /**
      * Privacy
      */
     public function getPrivacy()
     {
         return view('static.privacy');
+    }
+
+    /**
+     * Sitemap
+     */
+    public function getSitemap()
+    {
+        $categories = Category::get();
+        $facilities = Facility::get();
+        $locations = Location::get();
+        $organizations = Organization::get();
+
+        return view('static.sitemap', compact('categories', 'facilities', 'locations', 'organizations'));
     }
 
     /**

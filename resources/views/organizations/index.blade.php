@@ -2,9 +2,11 @@
 
 @section('title', 'Agencies - MilitaryBaseJobs.com')
 
+@section('description',  App\Organization::count() . ' federal agencies hiring near ' . App\Facility::count() . ' military bases.')
+
 @section('content')
 
-    <div class="row">
+    <div class="row static">
 
         <div class="col-md-6 col-md-offset-3 listings">
 

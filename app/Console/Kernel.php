@@ -27,6 +27,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('usajobs:fetch')
-                 ->daily();
+                 ->twiceDaily(1, 13);
+        $schedule->command('insert:job:links')
+                 ->cron('0 */2 * * *');
     }
 }

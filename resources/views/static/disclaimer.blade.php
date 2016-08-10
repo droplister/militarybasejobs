@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="row static">
 
         <div class="col-md-7 col-md-offset-1">
 

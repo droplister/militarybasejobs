@@ -4,9 +4,17 @@ function chunkParagraphs($paragraph, $length)
 {
     $skip_array = array (
 
-        'U.S', 'H.M', 'U.S.C', 'P.L', 
+        'U.S', 'H.M', 'U.S.C', 'P.L', 'LL.B',
 
         '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 
+
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 
+
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+
+        'A ', 'B ', 'C ', 'D ', 'E ', 
 
         'Jr', 'Mr', 'Mrs', 'Ms', 'Dr', 'Prof', 'Sr' ,
         'jr', 'mr', 'mrs', 'ms', 'dr', 'prof', 'sr' ,
@@ -19,10 +27,13 @@ function chunkParagraphs($paragraph, $length)
         'dept', 'univ',
 
         'inc', 'ltd',
+        'Inc', 'Ltd',
 
-        'arc', 'al', 'ave', 'cl', 'ct', 'cres', 'dr',
+        'arc', 'al', 'ave', 'cl', 'ct', 'cres', 'dr', 'st',
+        'Arc', 'Al', 'Ave', 'Cl', 'Ct', 'Cres', 'Dr', 'St',
 
         'la', 'pl', 'plz', 'rd', 'tce',
+        'La', 'Pl', 'Plz', 'Rd', 'Tce',
 
         'Ala' , 'Ariz', 'Ark', 'Cal', 'Calif', 'Col', 'Colo', 'Conn',
         'Del', 'Fed' , 'Fla', 'Ga', 'Ida', 'Id', 'Ill', 'Ind', 'Ia',

@@ -2,15 +2,17 @@
 
 @section('title', 'Installations - MilitaryBaseJobs.com')
 
+@section('description', App\Facility::count() . ' military bases with ' . App\Listing::active()->count() . ' job listings.')
+
 @section('content')
 
-    <div class="row">
+    <div class="row static">
 
         <div class="col-md-6 col-md-offset-3 listings">
 
             <div class="page-header">
                 <h1>Installations</h1>
-                <p>{{ App\Facility::count() }} military bases with {{ App\Listing::count() }} job listings.</p>
+                <p>{{ App\Facility::count() }} military bases with {{ App\Listing::active()->count() }} job listings.</p>
             </div>
 
             @foreach($states as $state)

@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', "{$category->name} Jobs - MilitaryBaseJobs.com")
+@section('title', (is_null($category->parent_id) ? $category->name : "{$category->name} Jobs") . ' - MilitaryBaseJobs.com')
 
 @section('description', "Looking for a {$category->name} job on or near a military base? There are at least {$listings->total()} employment opportunities that fit your needs in the United States. Find out more on our website!")
 
@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="row page">
 
         <div class="col-md-3 col-sm-4 sidebar">
             @include('partials.sidebar', ['parent' => $category, 'method' => ($category->isParent() ? 'childrenListings' : 'listings'), 'request' => $request])
@@ -26,13 +26,15 @@
         <div class="col-md-6 col-sm-8">
 
             <div class="page-header">
-                <h1>{{ $category->name }}</h1>
+                @if($category->isParent())
+                    <h1>{{ $category->name }}</h1>
+                @else
+                    <h1>{{ $category->name }} Jobs</h1>
+                @endif
                 <p class="hidden-xs">{{ $listings->total() }} {{ $category->name }} {{ $listings->total() == 1 ? 'job' : 'jobs' }} available on or near military bases.</p>
             </div>
 
-            @if(count($listings))
-                @include('partials.listings', ['type' => 'category', 'listings' => $listings, 'request' => $request])
-            @endif
+            @include('partials.listings', ['type' => 'category', 'listings' => $listings, 'request' => $request])
 
         </div>
 

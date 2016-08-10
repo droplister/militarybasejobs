@@ -2,9 +2,11 @@
 
 @section('title', 'Categories - MilitaryBaseJobs.com')
 
+@section('description', App\Category::count() . ' categories for browsing jobs near military bases.')
+
 @section('content')
 
-    <div class="row">
+    <div class="row static">
 
         <div class="col-md-6 col-md-offset-3 listings">
 

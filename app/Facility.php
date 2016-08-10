@@ -58,13 +58,6 @@ class Facility extends Model
         return $this->locations()->states()->first();
     }
 
-    public function h1()
-    {
-        $h1 = str_replace('AFB', 'Air Force Base', $this->name);
-
-        return $h1;
-    }
-
     public function title()
     {
         $title = str_replace('Marine Corps Air Station', 'MCAS', $this->name);

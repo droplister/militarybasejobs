@@ -47,6 +47,14 @@ class LocationController extends Controller
             $listings->whereScheduleCode($request->schedule);
         }
 
+        if ($request->has('q'))
+        {
+            foreach(explode(' ', $request->q) as $search)
+            {
+                $listings->where('summary', 'like', '%' . $search . '%');
+            }
+        }
+
         $listings = $listings->active()->orderBy('published_at', 'desc')->paginate(10);
 
         return view('locations.show', compact('location', 'listings', 'request'));

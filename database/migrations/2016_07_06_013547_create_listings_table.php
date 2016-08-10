@@ -41,6 +41,9 @@ class CreateListingsTable extends Migration
             $table->integer('min_pay');
             $table->integer('max_pay');
 
+            // System
+            $table->boolean('linked')->default(0);
+
             // Timestamps
             $table->date('published_at');
             $table->date('ends_at');

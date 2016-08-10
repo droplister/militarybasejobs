@@ -1,8 +1,8 @@
 @extends('layouts.default')
 
-@section('title', "Military Base Jobs in {$location->name} - MilitaryBaseJobs.com")
+@section('title', ($location->type == 'state' ? 'Military Base Jobs in ' : '') . "{$location->name} - MilitaryBaseJobs.com")
 
-@section('description', "There are {$location->facilities()->count()} military installations in {$location->name} hiring part and full-time personnel, both military and civilian. Find out more on our website!")
+@section('description', "There are {$location->facilities()->count()} military installations in {$location->name} hiring part and full-time personnel, including military, veterans, spouses, and civilians. Find out more about federal government employment opportunities on our website!")
 
 @section('javascript')
     <script>
@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="row page">
 
         <div class="col-md-3 col-sm-4 sidebar">
             @include('partials.sidebar', ['parent' => $location, 'method' => 'listings', 'request' => $request])
@@ -26,7 +26,11 @@
         <div class="col-md-6 col-sm-8">
 
             <div class="page-header">
-                <h1>{{ $location->name }}</h1>
+                @if($location->isParent())
+                    <h1>{{ $location->name }}</h1>
+                @else
+                    <h1>{{ $location->name }} Jobs</h1>
+                @endif
                 @if($location->isParent())
                     <p>{{ $listings->total() }} {{ count($listings) == 1 ? 'job' : 'jobs' }} near {{ $location->facilities()->count() }} military {{ $location->facilities()->count() == 1 ? 'base' : 'bases' }} in {{ $location->children->count() }} {{ $location->children->count() == 1 ? 'county' : 'counties' }} in {{ $location->name }}.</p>
                 @else
@@ -34,9 +38,7 @@
                 @endif
             </div>
 
-            @if(count($listings))
-                @include('partials.listings', ['type' => 'location', 'listings' => $listings, 'request' => $request])
-            @endif
+            @include('partials.listings', ['type' => 'location', 'listings' => $listings, 'request' => $request])
 
         </div>
 

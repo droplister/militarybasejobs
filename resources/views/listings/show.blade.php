@@ -20,11 +20,11 @@
                     </div>
 
                     <div class="col-sm-2 col-xs-6">
-                        <a href="{{ $listing->url }}" class="btn btn-block btn-success" target="_blank">Apply Now</a>
+                        <a href="{{ Auth::guest() ? url(route('auth::register')) : url(route('listing::save', ['listing' => $listing->c_number])) }}" class="btn btn-block btn-primary">Save Job</a>
                     </div>
 
                     <div class="col-sm-2 col-xs-6">
-                        <a href="{{ Auth::guest() ? url(route('auth::register')) : url(route('listing::save', ['listing' => $listing->c_number])) }}" class="btn btn-block btn-primary">Save Job</a>
+                        <a href="{{ $listing->url }}" class="btn btn-block btn-success" target="_blank">Apply Now</a>
                         <div class="share hidden-xs hidden-sm">
                             <small><i class="glyphicon glyphicon-share"></i></small> 
                             <a class="a2a_dd" href="https://www.addtoany.com/share">Share Listing</a>
@@ -37,7 +37,9 @@
             </div>
 
             @if(@session('success'))
-                <div class="alert alert-success">Saved to your <a href="{{ url(route('user::listings')) }}">Watchlist</a>!</div>
+                <div class="alert alert-success"><small><i class="glyphicon glyphicon-ok-sign"></i></small> <b><a href="{{ url(route('user::listings')) }}">Added Job #{{ $listing->c_number }} to Watchlist &raquo;</a></b></div>
+            @elseif(! $listing->isActive())
+                <div class="alert alert-warning"><small><i class="glyphicon glyphicon-exclamation-sign"></i></small> This listing has been closed to new applications. This page exists for archive purposes only.</div>
             @endif
 
             <div class="row">
@@ -91,10 +93,10 @@
                                 <li class="active"><a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">Job Summary</a></li>
                             @endif
                             @if($listing->qualifications)
-                                <li><a href="#qualifications" aria-controls="qualifications" role="tab" data-toggle="tab">Qualifications</a></li>
+                                <li{{ (empty($listing->summary) ? " class=active" : '') }}><a href="#qualifications" aria-controls="qualifications" role="tab" data-toggle="tab">Qualifications</a></li>
                             @endif
                             @if($listing->open_to)
-                                <li><a href="#apply" aria-controls="apply" role="tab" data-toggle="tab"><span class="hidden-xs">Who May</span> Apply</a></li>
+                                <li{{ (empty($listing->summary) && empty($listing->qualifications) ? " class=active" : '') }}><a href="#apply" aria-controls="apply" role="tab" data-toggle="tab"><span class="hidden-xs">Who May</span> Apply</a></li>
                             @endif
                         </ul>
 
@@ -107,14 +109,14 @@
                                 </div>
                             @endif
                             @if($listing->qualifications)
-                                <div role="tabpanel" class="tab-pane" id="qualifications">
+                                <div role="tabpanel" class="tab-pane{{ empty($listing->summary) ? ' active' : '' }}" id="qualifications">
                                         @foreach(chunkParagraphs($listing->qualifications, 1) as $paragraph)
                                             <p>{!! $paragraph !!}</p>
                                         @endforeach
                                 </div>
                             @endif
                             @if($listing->open_to)
-                                <div role="tabpanel" class="tab-pane" id="apply">
+                                <div role="tabpanel" class="tab-pane{{ (empty($listing->summary) && empty($listing->qualifications) ? ' active' : '') }}" id="apply">
                                         @foreach(chunkParagraphs($listing->open_to, 1) as $paragraph)
                                             <p>{!! $paragraph !!}</p>
                                         @endforeach
@@ -146,7 +148,7 @@
                         <div class="related">
 
                             <div class="page-header">
-                                <h3>Related Listings</h3>
+                                <h3>Related Job Listings</h3>
                             </div>
 
                             @include('partials.listings', ['type' => 'related', 'listings' => $related])

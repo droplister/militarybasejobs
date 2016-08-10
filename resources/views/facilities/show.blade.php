@@ -1,8 +1,8 @@
 @extends('layouts.default')
 
-@section('title', "Military, Civilian Jobs at {$facility->title()} - MilitaryBaseJobs.com")
+@section('title', "Military, Civilian Jobs on {$facility->title()} - MilitaryBaseJobs.com")
 
-@section('description', "There are {$facility->listings->count()} job listings for open positions at {$facility->name}, {$facility->state()->name}. Find employment on a military base near you today!")
+@section('description', "There are {$facility->listings->count()} job listings for open positions at {$facility->name}, {$facility->state()->name}. " . maxLength($facility->content, 200))
 
 @section('javascript')
     <script>
@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="row page">
 
         <div class="col-md-3 col-sm-4 sidebar">
             @include('partials.sidebar', ['parent' => $facility, 'method' => 'listings', 'request' => $request])
@@ -26,13 +26,11 @@
         <div class="col-md-6 col-sm-8">
 
             <div class="page-header">
-                <h1>{{ $facility->h1() }}</h1>
-                <p>{{ $listings->total() }} {{ $listings->total() == 1 ? 'job' : 'jobs' }} listed by {{ $facility->organizations->count() }} federal {{ $facility->organizations->count() == 1 ? 'agency' : 'agencies' }} near {{ $facility->title() }} in {{ $facility->state()->name }}.</p>
+                <h1>{{ $facility->title() }} Jobs</h1>
+                <p>{{ $listings->total() }} {{ $listings->total() == 1 ? 'job' : 'jobs' }} listed by {{ $facility->organizations->count() }} federal {{ $facility->organizations->count() == 1 ? 'agency' : 'agencies' }} near {{ str_replace('AFB', 'Air Force Base', $facility->name) }} in {{ $facility->state()->code == 'DC' ? $facility->state()->name : $facility->state()->name . '.' }}</p>
             </div>
 
-            @if(count($listings))
-                @include('partials.listings', ['type' => 'facility', 'listings' => $listings, 'request' => $request])
-            @endif
+            @include('partials.listings', ['type' => 'facility', 'listings' => $listings, 'request' => $request])
 
             <div class="content">
 

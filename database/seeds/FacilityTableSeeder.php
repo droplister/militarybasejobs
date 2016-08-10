@@ -71,7 +71,7 @@ Currently, the City of Philadelphia owns the Navy Yard. Naval activities current
 Established in 1941, Dam Neck was first intended to train fleet personnel as an anti-aircraft gunnery range. Today, Dam Neck Annex houses 20 tenant commands focused on Navy training and support activities. 
 
 Dam Neck is uniquely situated within 30 minutes of half of NATO command, joint forces and the American fleet. It's also near Naval Air Station Oceana and Army and Air Force commands, allowing it to easily provide testing and training services. In addition, Dam Neck, Newport News shipbuilders and Virginia academic institutions cooperate on research, testing and training activities."],
-            ["511683199", "Naval Weapons Station Yorktown", "naval-weapons-station-yorktown", "Yorktown, VA is home to Naval Weapons Station (NAVWPNSTA) Yorktown. The location is steeped in colonial history. The U.S. Navy acquired the land for the installation in 1918, after World War I began. It was originally the home of the Navy Mine Depot. In 1958, on the installation's 40th birthday, it was renamed to reflect its broader role in the context of the Navy. Today NAVWPNSTA Yorktown supports the Atlantic Fleet with ordinance and supplies. 
+            ["511683199", "Naval Weapons Station Yorktown", "naval-weapons-station-yorktown", "Yorktown, Virginia, is home to Naval Weapons Station (NAVWPNSTA) Yorktown. The location is steeped in colonial history. The United States Navy acquired the land for the installation in 1918, after World War I began. It was originally the home of the Navy Mine Depot. In 1958, on the installation's 40th birthday, it was renamed to reflect its broader role in the context of the Navy. Today NAVWPNSTA Yorktown supports the Atlantic Fleet with ordinance and supplies. 
 
 NAVWPNSTA Yorktown houses 37 tenant commands including the Navy Expeditionary Logistics Support Group, Navy Munitions Command, Navy Cargo Handling Battalion One, Naval Ophthalmic Support and Training, the Fleet Industrial Supply Center, and the Marine Corps Security Force Regiment.
 
@@ -565,7 +565,7 @@ The base currently hosts the 88th Air Base Wing and a number of highly significa
 
 The facility, where no more than 200 military personnel live and work, exists to provide early warnings of intercontinental ballistic missile and air attacks on the U.S. and Canada. Military personnel are assigned there from the Army, Navy, Air Force and Marines.
 
-Some of NORAD’s crew operations and its headquarters have been moved to nearby Peterson Air Force Base. Other agencies are located in the Cheyenne Mountain Complex, including the U.S. Northern Command."],
+Some of NORAD's crew operations and its headquarters have been moved to nearby Peterson Air Force Base. Other agencies are located in the Cheyenne Mountain Complex, including the U.S. Northern Command."],
             ["062075065", "March Air Reserve Base", "march-arb", "March Air Reserve Base is a base of the United States Air Force and is located in Riverside County, California in the southern part of the state. The 2010 Census showed that March ARB has a population of about 1,150 people.
 
 March ARB is home to the Fourth Air Force, a major component of the Air Force Reserves, and is also home to the largest air mobility wing in the entire Fourth Air Force as well. In addition to being a base of the United States Air Force, March ARB is also home to units from the Reserves of the Army, Navy, and Marine Corps as well as the California Air National Guard and the California Army National Guard.
@@ -666,7 +666,11 @@ Camp Dodge operates the Sustainment Training Center, Joint Force Headquarters an
 The Minnesota National Guard uses Camp Ripley to train year round, although it isn't the only agency to use the services of the Camp. The Minnesota Department of Transportation and the Minnesota State Patrol also use Camp Ripley for various training exercises.
 
 Camp Ripley is also the home of the Minnesota Military Museum, which was opened in 1977 and boasts an impressive collection of more than 35,000 artifacts. The wildlife throughout the grounds of the Camp require that each year, 3 deer hunts are held on the ground."],
-            ["360816119", "Camp Smith", "camp-smith"],
+            ["360816119", "Camp Smith", "camp-smith", "Camp Smith is a New York Army National Guard installation in Cortland Manor, New York. Located about 30 miles north of New York City, the camp was established as Fort Townsend in 1881 and became Camp Smith in 1919.
+
+It operates as a training base for National Guard units as well as law enforcement, military units, and civilian organizations. The 1,900 acres of the site provide 1,585 acres of training area suitable for a variety of tactical maneuvers. Helicopter zones, eight live fire outdoor gun ranges, and the natural mountainous terrain complement the offerings of simulator training. Barracks and a substantial support system for operations are well established on 95 acres.
+
+A permanent contingent of 41 soldiers maintain Camp Smith. The Camp serves as a mobilization base for National Guard Troops when needed and participates in first responder civilian training."],
             ["391283123", "Camp Perry", "camp-perry", "Camp Perry resides on the southwest shores of Lake Erie, and has been in operation since 1909. Originally constructed as a competition ground for the National Matches rifle marksmanship contests, this northern Ohio camp saw its first military action as a training ground for Army officers during World War I.
 
 Given its history as a shooting range, it should be no surprise that Camp Perry is home to the worlds largest outdoor shooting range. The Small Arms Firing School located at Camp Perry trains over a thousand people per year, and is run by the U.S. Army Marksmanship Unit.
@@ -921,7 +925,11 @@ Built in 1941, and originally called The Chemical Warfare Arsenal, Pine Bluff pr
 Opened in 1942, Camp Ravenna originally consisted of two ammunition plants; the Ravenna Ordinance Plant and the Portage Ordnance Depot. During World War II, the plant in Ravenna had a huge impact on the local community, with over 14,000 people finding employment at the plant during the War.
 
 After the conclusion of the Vietnam War, the Ravenna Arsenal ceased all ammunition production. The site remained dormant for several years, before being converted into a National Guard training center. Camp Ravenna is currently being discussed as a potential missile defense site."],
-            ["082151001", "Rocky Mountain Arsenal", "rocky-mountain-arsenal"],
+            ["082151001", "Rocky Mountain Arsenal", "rocky-mountain-arsenal", "The Rocky Mountain Arsenal, located near Commerce City, Colorado, just eight miles from downtown Denver, was established by the U.S. Army in 1942 as a chemical weapons manufacturing facility. After the Vietnam War, the focus shifted to dismantling of these weapons. After decades of manufacturing these hazard chemicals, the site was contaminated, and a major remediation effort was ordered in the mid-1980s.
+
+Despite these on-site hazards, the 17,000-acre site was also a habitat for 330 species of animals, and interestingly, a roost of bald eagles, then an endangered species, was discovered there in 1986. A law was passed in 1992 designating the site as the Rocky Mountain Arsenal Wildlife Area.
+
+The wildlife refuge area, now managed by the U.S. Department of the Interior, is open to the public. Approximately 300,000 people visited there in 2013."],
             ["342585027", "Picatinny Arsenal", "picatinny-arsenal", "Picatinny Arsenal is located on 6400 acres in Wharton, in Jefferson and Rockaway Townships in New Jersey. Its headquarters are located in Morris Township. It was founded in 1880 and is run by the U.S. Army. Picatinny Arsenal employs approximately 6,000 engineers, support personnel and scientists. 
 
 Although World War II briefly delayed the basic scope of Picatinny Arsenal's major research and development of military products, by 1977, the site resumed its weaponry research and development on nuclear munitions, radar, pyrotechnics, time fuzes and missiles. By the 1980s, Picatinny Arsenal property was expanded by 12 acres. It also expanded product research."],

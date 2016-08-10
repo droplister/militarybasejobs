@@ -54,6 +54,14 @@ class OrganizationController extends Controller
             $listings->whereScheduleCode($request->schedule);
         }
 
+        if ($request->has('q'))
+        {
+            foreach(explode(' ', $request->q) as $search)
+            {
+                $listings->where('summary', 'like', '%' . $search . '%');
+            }
+        }
+
         $listings = $listings->active()->orderBy('published_at', 'desc')->paginate(10);
 
         return view('organizations.show', compact('organization', 'listings', 'request'));
